@@ -15,12 +15,10 @@ namespace ConsoleApp1
         private const string testFile = @"C:\Users\Kikyo\Desktop\临时\1.txt";
         static void Main()
         {
-
             //string path = @"C:\Users\Kikyo\Desktop\临时\1.txt";
             //FileHelper.ReadFileAsync(testFile, CallBack);
             //string s = File.ReadAllText(path);
             //Console.WriteLine(s);
-
             CreateTestFile();
             Console.WriteLine("主线程权限测试：");
             JudgePermission(null);
