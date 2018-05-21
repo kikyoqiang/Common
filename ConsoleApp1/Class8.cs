@@ -19,6 +19,7 @@ namespace ConsoleApp1
             //FileHelper.ReadFileAsync(testFile, CallBack);
             //string s = File.ReadAllText(path);
             //Console.WriteLine(s);
+
             CreateTestFile();
             Console.WriteLine("主线程权限测试：");
             JudgePermission(null);
