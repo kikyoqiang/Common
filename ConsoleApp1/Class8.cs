@@ -13,7 +13,7 @@ namespace ConsoleApp1
     class Class8
     {
         private const string testFile = @"C:\Users\Kikyo\Desktop\临时\1.txt";
-        static void Main()
+        static void Main22()
         {
             //string path = @"C:\Users\Kikyo\Desktop\临时\1.txt";
             //FileHelper.ReadFileAsync(testFile, CallBack);
