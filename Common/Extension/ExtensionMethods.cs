@@ -495,5 +495,50 @@ namespace System
             return Convert.ToDateTime(LastDay);
         }
         #endregion
+
+        #region 将时间转换为 yyyy-MM-dd 格式
+
+        /// <summary> 时间转换 失败返回1970-01-01</summary>
+        public static string ToDateStr(this DateTime dateTime)
+        {
+            return dateTime.ToString("yyyy-MM-dd");
+        }
+        /// <summary> 时间转换 失败返回1970-01-01 </summary>
+        public static string ToDateStr(this string dateTimeStr)
+        {
+            return dateTimeStr.ToDateTime().ToDateStr();
+        }
+
+        /// <summary> 时间转换 失败返回1970-01-01 00:00:00 </summary>
+        public static string ToDateStrHH(this DateTime dateTime)
+        {
+            return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+        /// <summary> 时间转换 失败返回1970-01-01 00:00:00 </summary>
+        public static string ToDateStrHH(this string dateTimeStr)
+        {
+            return dateTimeStr.ToDateTime().ToDateStrHH();
+        }
+
+        /// <summary> 给时间加上00:00:00 </summary>
+        public static string AddStr00(this string dateStr)
+        {
+            return string.Format("{0} 00:00:00", dateStr);
+        }
+        /// <summary> 给时间加上23:59:59 </summary>
+        public static string AddStr23(this string dateStr)
+        {
+            return string.Format("{0} 23:59:59", dateStr);
+        }
+
+        /// <summary> 日期转换 默认值1970-01-01 00:00:00 </summary>
+        public static DateTime ToDateTime(this string dateTimeStr)
+        {
+            DateTime dateTime = DateTime.Parse("1970-01-01 00:00:00");
+            DateTime.TryParse(dateTimeStr, out dateTime);
+            return dateTime;
+        }
+
+        #endregion
     }
 }

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console2", "Console2\Console2.csproj", "{8EE77472-967F-41CC-A787-7F44E8AF8FA7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IFMTest", "IFMTest\IFMTest.csproj", "{027D9C84-D2B6-4762-BB63-CBAF36A97577}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{8EE77472-967F-41CC-A787-7F44E8AF8FA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EE77472-967F-41CC-A787-7F44E8AF8FA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EE77472-967F-41CC-A787-7F44E8AF8FA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{027D9C84-D2B6-4762-BB63-CBAF36A97577}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{027D9C84-D2B6-4762-BB63-CBAF36A97577}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{027D9C84-D2B6-4762-BB63-CBAF36A97577}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{027D9C84-D2B6-4762-BB63-CBAF36A97577}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
