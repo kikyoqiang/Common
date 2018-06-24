@@ -12,6 +12,7 @@ namespace Console2
     {
         static void Main()
         {
+            Console.WriteLine();
             Int32[] array1 = new int[] { 5, 1, 9, 4, 3, 0, 2 };//new Int32[] { 1, 3, 1, 4, 2, 4, 2, 3, 2, 4, 7, 6, 6, 7, 5, 5, 7, 7 };
             Console.WriteLine("Before InsertionSort:");
             PrintArray(array1);
