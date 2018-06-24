@@ -13,6 +13,16 @@ namespace System
     {
         #region String扩展方法
         /// <summary>
+        /// 判断string是否为空
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this string s)
+        {
+            return s == null || s.Trim().Length == 0;
+        }
+
+        /// <summary>
         /// 将字符串转换为Int数据类型并返回，如果转换不成功，则返回指定的替代值。
         /// </summary>
         /// <param name="text">要执行转换的字符串</param>
@@ -146,23 +156,16 @@ namespace System
             return d;
         }
 
+        /// <summary>
+        /// 判断object是否为空
+        /// </summary>
         public static bool IsNull(this object text)
         {
             return text == null;
         }
         #endregion
 
-        #region 
-        /// <summary>
-        /// 判断是否为空
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        public static bool IsNullOrEmpty(this string s)
-        {
-            return s == null || s.Trim().Length == 0;
-        }
-
+        #region  IFM ExtensionMethods
         /// <summary>
         /// 根据生日取得年龄
         /// </summary>
@@ -414,6 +417,9 @@ namespace System
             return data.Rows[rowIndex].GetValue(pColumnName);
         }
 
+        /// <summary>
+        /// 判断DataTable是否为空
+        /// </summary>
         public static bool IsNullOrEmpty(this DataTable data)
         {
             return data == null || data.Rows.Count <= 0;

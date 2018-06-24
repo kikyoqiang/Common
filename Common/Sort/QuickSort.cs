@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Common
 {
+    /// <summary>
+    /// 快速排序
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class QuickSort<T> where T : IComparable<T>
     {
         public static void Sort(T[] array)

@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Common
 {
+    /// <summary>
+    /// 基本排序
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public static class BasicSort<T> where T : IComparable<T>
     {
         private static void Swap(T[] arry, int i, int min)

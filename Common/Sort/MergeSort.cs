@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Common
 {
+    /// <summary>
+    /// 合并排序
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class MergeSort<T> where T : IComparable<T>
     {
         private static T[] aux; // 用于排序的辅助数组

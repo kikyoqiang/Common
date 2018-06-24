@@ -6,15 +6,16 @@ using System.Text;
 namespace Common
 {
     /// <summary>优先级队列</summary>
-    public class PriorityQueue<T> where T : IComparable<T>
+    public class PriorityQueue2<T> where T : IComparable<T>
     {
         static T[] pq;
         static int N;
-        private static void Swap(T[] arry, int a, int b)
+        public static void Insert(T s)
         {
-            T temp = arry[a];
-            arry[a] = arry[b];
-            arry[b] = temp;
+            //将元素添加到数组末尾
+            pq[++N] = s;
+            //然后让该元素从下至上重建堆
+            Swim(N);
         }
         private static void Swim(int k)
         {
@@ -25,12 +26,18 @@ namespace Common
                 k = k / 2;
             }
         }
-        public static void Insert(T s)
+
+        public static T DelMax()
         {
-            //将元素添加到数组末尾
-            pq[++N] = s;
-            //然后让该元素从下至上重建堆
-            Swim(N);
+            //根元素从1开始，0不存放值
+            T max = pq[1];
+            //将最后一个元素和根节点元素进行交换
+            Swap(pq, 1, N--);
+            //对根节点从上至下重新建堆
+            Sink(1);
+            //将最后一个元素置为空
+            pq[N + 1] = default(T);
+            return max;
         }
         private static void Sink(int k)
         {
@@ -46,17 +53,12 @@ namespace Common
                 k = j;
             }
         }
-        public static T DelMax()
+
+        private static void Swap(T[] arry, int a, int b)
         {
-            //根元素从1开始，0不存放值
-            T max = pq[1];
-            //将最后一个元素和根节点元素进行交换
-            Swap(pq, 1, N--);
-            //对根节点从上至下重新建堆
-            Sink(1);
-            //将最后一个元素置为空
-            pq[N + 1] = default(T);
-            return max;
+            T temp = arry[a];
+            arry[a] = arry[b];
+            arry[b] = temp;
         }
     }
 }
