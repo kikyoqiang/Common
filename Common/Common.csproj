@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BinarySearchSymbolTable.cs" />
     <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="Other\Category.cs" />
     <Compile Include="Helper\CacheHelper.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Helper\ObjTo.cs" />
     <Compile Include="Helper\HttpHelper.cs" />
     <Compile Include="Helper\LogHelper.cs" />
+    <Compile Include="Sort\SequentSearchSymbolTable.cs" />
     <Compile Include="Sort\PriorityQueue.cs" />
     <Compile Include="StackQueue\PriorityQueue.cs" />
     <Compile Include="Sort\BasicSort.cs" />
@@ -63,6 +65,7 @@
     <Compile Include="StackQueue\StackArray.cs" />
     <Compile Include="StackQueue\StackNode.cs" />
     <Compile Include="Helper\XmlHelper.cs" />
+    <Compile Include="Sort\SymbolTables.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Utility.cs" />
   </ItemGroup>
