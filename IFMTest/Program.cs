@@ -9,6 +9,7 @@ namespace IFMTest
     {
         static void Main(string[] args)
         {
+            var c = DateTime.MinValue;
             string date = "1991-09-10";
             var a = Utility.GetAgeByBirthDay(date.ToDateTime());
             var b = date.ToDateTime().GetAgeByBirthDate();
