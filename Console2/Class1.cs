@@ -10,25 +10,28 @@ namespace Console2
 {
     class Class1
     {
-        static void Main()
+        static void Main22()
         {
-            Console.WriteLine();
-            Int32[] array1 = new int[] { 5, 1, 9, 4, 3, 0, 2 };//new Int32[] { 1, 3, 1, 4, 2, 4, 2, 3, 2, 4, 7, 6, 6, 7, 5, 5, 7, 7 };
+            int[] array = new int[] { 5, 1, 9, 4, 3, 0, 2 };//new Int32[] { 1, 3, 1, 4, 2, 4, 2, 3, 2, 4, 7, 6, 6, 7, 5, 5, 7, 7 };
             Console.WriteLine("Before InsertionSort:");
-            PrintArray(array1);
-            //Sort<Int32>.ShellSort(array1);
-            //MergeSort<int>.Sort(array1);
-            PriorityQueue<int>.Sort(array1);
+            PrintArray(array);
+
+            //Sort<Int32>.ShellSort(array);
+            //MergeSort<int>.Sort(array);
+            PriorityQueue<int>.Sort(array);
+
             Console.WriteLine("After InsertionSort:");
-            PrintArray(array1);
+            PrintArray(array);
             Console.ReadKey();
         }
+        #region PrintArray
         static void PrintArray(int[] array)
         {
             foreach (var item in array)
             {
                 Console.WriteLine(item);
             }
-        }
+        } 
+        #endregion
     }
 }
