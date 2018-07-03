@@ -10,19 +10,54 @@ namespace Console2
     {
         static void Main()
         {
-            //SequentSearchSymbolTable<int, int> s = new SequentSearchSymbolTable<int, int>();
-            BinarySearchSymbolTable<int, string> s = new BinarySearchSymbolTable<int, string>();
-            s.Put(1, "哈哈1");
-            s.Put(2, "哈哈2");
-            s.Put(3, "哈哈3");
-            s.Put(4, "哈哈4");
-            s.Put(5, "哈哈5");
-            s.Put(6, "哈哈6");
-            Console.WriteLine(s.Get(1));
-            Console.WriteLine(s.Get(2));
-            Console.WriteLine(s.Get(3));
-            Console.WriteLine(s.Get(4));
-            Console.ReadKey();
+            
+        }
+        static Dictionary<decimal, int> Exchange(decimal num)
+        {
+            var money = GetInt();
+            int i = 0;
+            while (true)
+            {
+                if (num <= 0.05M)
+                {
+                    return money;
+                }
+                var max = money.Keys.ElementAt(i);
+                if (num >= max)
+                {
+                    num = num - max;
+                    money[max] = money[max] + 1;
+                }
+                else
+                {
+                    if (num < 0.1M && num >= 0.05M)
+                    {
+                        money[0.10M] = money[0.10M] + 1;
+                        num = 0.00M;
+                    }
+                    else
+                    {
+                        num++;
+                    }
+                }
+            }
+            return null;
+        }
+        static Dictionary<decimal, int> GetInt()
+        {
+            Dictionary<decimal, int> money = new Dictionary<decimal, int>();
+            //key表示钱，value表示钱的张数
+            money.Add(100.00M, 0);
+            money.Add(50.00M, 0);
+            money.Add(20.00M, 0);
+            money.Add(10.00M, 0);
+            money.Add(5.00M, 0);
+            money.Add(2.00M, 0);
+            money.Add(1.00M, 0);
+            money.Add(0.50M, 0);
+            money.Add(0.20M, 0);
+            money.Add(0.10M, 0);
+            return money;
         }
     }
 }

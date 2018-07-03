@@ -45,7 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BinarySearchSymbolTable.cs" />
+    <Compile Include="Sort\BinarySearchSymbolTable.cs" />
+    <Compile Include="Sort\BinarySearchTreeSymbolTable.cs" />
     <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="Other\Category.cs" />
     <Compile Include="Helper\CacheHelper.cs" />

@@ -56,6 +56,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Class\QueueArray.cs" />
     <Compile Include="Class\Timing.cs" />
+    <Compile Include="Helper\Tuple.cs" />
+    <Compile Include="Helper\Tuples.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
