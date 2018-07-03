@@ -38,5 +38,11 @@ namespace WindowsFormsApp1
             MessageBox.Show(string.Format("出现错误 {0} \r\n {1}", ex.Message, ex.StackTrace));
             return;
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form2 f = new Form2();
+            f.ShowDialog();
+        }
     }
 }
