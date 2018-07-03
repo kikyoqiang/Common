@@ -241,26 +241,7 @@ namespace System
 
             return result;
         }
-
-        /// <summary>
-        /// 日期转换
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        public static DateTime? ToDate(this string s)
-        {
-            if (s.IsNullOrEmpty()) return null;
-
-            try
-            {
-                return Convert.ToDateTime(s);
-            }
-            catch (System.Exception ex)
-            {
-                return null;
-            }
-        }
-
+        
         /// <summary>
         /// 补齐小数位
         /// </summary>
@@ -428,6 +409,7 @@ namespace System
 
         #endregion
 
+        #region 得到本周第一天或最后一天
         #region 得到本周第一天(以星期天为第一天)
         /// <summary>
         /// 得到本周第一天(以星期天为第一天)
@@ -494,6 +476,7 @@ namespace System
             string LastDay = datetime.AddDays(daydiff).ToString("yyyy-MM-dd");
             return Convert.ToDateTime(LastDay);
         }
+        #endregion 
         #endregion
 
         #region 将时间转换为 yyyy-MM-dd 格式

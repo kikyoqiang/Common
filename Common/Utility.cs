@@ -10,13 +10,13 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web.Services.Description;
 
-namespace Common
+namespace System
 {
     public class Utility
     {
         #region 变量
         /// <summary>种子日期（自动排班用）</summary> 
-        private static DateTime sourse = DateTime.Parse("2018-01-01 00:00:00"); 
+        private static DateTime sourse = DateTime.Parse("2018-01-01 00:00:00");
         #endregion
 
         /// <summary> 检测WebService是否可用 </summary> 
@@ -44,11 +44,11 @@ namespace Common
             }
             catch (WebException e)
             {
-                LogHelper.Instance.WriteError(String.Format("网络连接错误 : {0}", e.Message));
+                Common.LogHelper.Instance.WriteError(String.Format("网络连接错误 : {0}", e.Message));
             }
             catch (Exception ex)
             {
-                LogHelper.Instance.WriteError(ex.Message + "|" + ex.StackTrace);
+                Common.LogHelper.Instance.WriteError(ex.Message + "|" + ex.StackTrace);
             }
             finally
             {
@@ -60,7 +60,7 @@ namespace Common
             }
 
             return bRet;
-        } 
+        }
         #endregion
 
         #region InvokeWebService
@@ -118,11 +118,11 @@ namespace Common
             }
             catch (System.Exception ex)
             {
-                LogHelper.Instance.WriteError(ex.Message + "|" + ex.StackTrace);
+                Common.LogHelper.Instance.WriteError(ex.Message + "|" + ex.StackTrace);
                 //MessageManager.ShowErrorMsg(ex.Message.ToString(), "test");
                 return null;
             }
-        } 
+        }
         #endregion
 
         #region GetClassName
@@ -133,7 +133,7 @@ namespace Common
             string[] parts = url.Split('/');
             string[] pps = parts[parts.Length - 1].Split('.');
             return pps[0];
-        } 
+        }
         #endregion
 
         /// <summary> GetMD5FromFile </summary>
@@ -160,7 +160,7 @@ namespace Common
             fs.Dispose();
 
             return md5Str;
-        } 
+        }
         #endregion
 
         /// <summary> GetMD5FromFileStream </summary>
@@ -183,7 +183,7 @@ namespace Common
             }
 
             return md5Str;
-        } 
+        }
         #endregion
 
         /// <summary> 根据时间 获取周几Int </summary>
@@ -196,7 +196,7 @@ namespace Common
                 return GetWeekInt(dateTime);
             }
             return -1;
-        } 
+        }
         #endregion
 
         /// <summary> 根据时间 获取周几Int </summary>
@@ -209,7 +209,7 @@ namespace Common
             if (weekStr == "0")
                 week = 7;
             return week;
-        } 
+        }
         #endregion
 
         /// <summary>获得目标日期 是单周 还是双周 根据种子日期</summary> 
@@ -243,7 +243,19 @@ namespace Common
         public static string GetWeekStrOfYear(DateTime dateTime)
         {
             return GetWeekIntOfYear(dateTime) % 2 == 1 ? "单周" : "双周";
-        } 
+        }
         #endregion
+
+        /// <summary> 计算年龄 </summary>
+        public static int GetAgeByBirthDay(DateTime birthDay)
+        {
+            DateTime now = DateTime.Now;
+            int age = now.Year - birthDay.Year;
+            if (now.Month < birthDay.Month || (now.Month == birthDay.Month && now.Day < birthDay.Day))
+            {
+                age--;
+            }
+            return age < 0 ? 0 : age;
+        }
     }
 }
