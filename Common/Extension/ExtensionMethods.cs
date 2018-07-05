@@ -503,15 +503,15 @@ namespace System
             return dateTimeStr.ToDateTime().ToDateStrHH();
         }
 
-        /// <summary> 给时间加上00:00:00 </summary>
+        /// <summary> 给时间加上00:00:00.000 </summary>
         public static string AddStr00(this string dateStr)
         {
-            return string.Format("{0} 00:00:00", dateStr);
+            return string.Format("{0} 00:00:00.000", dateStr);
         }
-        /// <summary> 给时间加上23:59:59 </summary>
+        /// <summary> 给时间加上23:59:59.997 </summary>
         public static string AddStr23(this string dateStr)
         {
-            return string.Format("{0} 23:59:59", dateStr);
+            return string.Format("{0} 23:59:59.997", dateStr);
         }
 
         /// <summary> 日期转换 默认值1753-01-01 00:00:00 </summary>
