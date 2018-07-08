@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IFM_Test", "IFMTest\IFM_Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IFM_Form", "IFM_Form\IFM_Form.csproj", "{9C70AE16-F587-47B7-9E67-2F9AADA3CB82}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other", "Other", "{61F9B4FE-DCF9-4AB7-999A-573E7029422E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

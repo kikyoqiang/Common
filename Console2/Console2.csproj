@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sort\RedBlackTree.cs" />
     <Compile Include="Sort\BinarySearchSymbolTable.cs" />
     <Compile Include="Sort\BinarySearchTreeSymbolTable.cs" />
     <Compile Include="Sort\BSS.cs" />

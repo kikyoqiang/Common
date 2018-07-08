@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Console2
@@ -10,54 +12,32 @@ namespace Console2
     {
         static void Main()
         {
-            
-        }
-        static Dictionary<decimal, int> Exchange(decimal num)
-        {
-            var money = GetInt();
-            int i = 0;
-            while (true)
+            SortedSet<int> set = new SortedSet<int>();
+            RedBlackTree<int, int> red = new RedBlackTree<int, int>();
+            Random random = new Random();
+            for (int i = 0; i < 10; i++)
             {
-                if (num <= 0.05M)
-                {
-                    return money;
-                }
-                var max = money.Keys.ElementAt(i);
-                if (num >= max)
-                {
-                    num = num - max;
-                    money[max] = money[max] + 1;
-                }
-                else
-                {
-                    if (num < 0.1M && num >= 0.05M)
-                    {
-                        money[0.10M] = money[0.10M] + 1;
-                        num = 0.00M;
-                    }
-                    else
-                    {
-                        num++;
-                    }
-                }
+                red.Put(random.Next(1, 15), random.Next(1, 15));
             }
-            return null;
-        }
-        static Dictionary<decimal, int> GetInt()
-        {
-            Dictionary<decimal, int> money = new Dictionary<decimal, int>();
-            //key表示钱，value表示钱的张数
-            money.Add(100.00M, 0);
-            money.Add(50.00M, 0);
-            money.Add(20.00M, 0);
-            money.Add(10.00M, 0);
-            money.Add(5.00M, 0);
-            money.Add(2.00M, 0);
-            money.Add(1.00M, 0);
-            money.Add(0.50M, 0);
-            money.Add(0.20M, 0);
-            money.Add(0.10M, 0);
-            return money;
+            #region DataTable
+            //DataTable dt = new DataTable();
+            //dt.Columns.Add("Id", typeof(int));
+            //dt.Columns.Add("Name", typeof(string));
+            //dt.Columns.Add("Bithday", typeof(DateTime));
+            //dt.Columns.Add("Count", typeof(int));
+            //var columnId = dt.Columns[0];
+            //dt.Columns["Count"].Expression = "avg(Id)";
+
+            //dt.DefaultView.ToTable(true, "Id");
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    var row = dt.NewRow();
+            //    row["Id"] = i + 1;
+            //    dt.Rows.Add(row);
+            //} 
+            #endregion
+
+            Console.ReadKey();
         }
     }
 }
