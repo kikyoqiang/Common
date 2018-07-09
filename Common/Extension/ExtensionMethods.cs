@@ -241,7 +241,7 @@ namespace System
 
             return result;
         }
-        
+
         /// <summary>
         /// 补齐小数位
         /// </summary>
@@ -517,8 +517,9 @@ namespace System
         /// <summary> 日期转换 默认值1753-01-01 00:00:00 </summary>
         public static DateTime ToDateTime(this string dateTimeStr)
         {
-            DateTime dateTime = DateTime.Parse("1753-01-01 00:00:00");
-            DateTime.TryParse(dateTimeStr, out dateTime);
+            DateTime dateTime;
+            if (!DateTime.TryParse(dateTimeStr, out dateTime))
+                dateTime = DateTime.Parse("1753-01-01 00:00:00");
             return dateTime;
         }
 

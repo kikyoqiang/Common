@@ -10,7 +10,10 @@ namespace Console2
     {
         static void Main()
         {
-            
+            string s = "";
+            var a = s.ToDateStrHH();
+            Console.ReadKey();
+
         }
         static Dictionary<decimal, int> Exchange(decimal num)
         {
