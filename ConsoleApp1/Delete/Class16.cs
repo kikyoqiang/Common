@@ -6,15 +6,13 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace Console3
 {
     class Class16
     {
-        static void Main()
+        static void Main222()
         {
-            int a = 1;
-            int b = 2;
-            a.Equals(b);
+
             Console.ReadKey();
         }
     }

@@ -8,7 +8,7 @@ using System.Security.Permissions;
 using System.Text;
 using System.Threading;
 
-namespace ConsoleApp1
+namespace Console3
 {
     class Class8
     {

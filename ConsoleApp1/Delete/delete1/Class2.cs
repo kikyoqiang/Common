@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System.Text;
  
 
-namespace ConsoleApp1
+namespace Console3
 {
     class Class2
     {

@@ -7,7 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace Console3
 {
     [Serializable]
     public class DeepCopy : ICloneable

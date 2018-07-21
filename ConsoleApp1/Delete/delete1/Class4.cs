@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Common;
 
-namespace ConsoleApp1
+namespace Console3
 {
     class Class4
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace Console3
 {
     // 定义一个委托
     public delegate string GetStringDelegate();

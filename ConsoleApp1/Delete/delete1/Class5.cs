@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Common;
 using System.Globalization;
 
-namespace ConsoleApp1
+namespace Console3
 {
     class Class5
     {

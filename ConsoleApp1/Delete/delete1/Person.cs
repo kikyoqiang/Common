@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
  
 
-namespace ConsoleApp1
+namespace Console3
 {
     [Serializable]
     class Person
