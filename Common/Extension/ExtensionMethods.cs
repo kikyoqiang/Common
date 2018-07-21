@@ -165,10 +165,8 @@ namespace System
         }
         #endregion
 
-        #region  IFM ExtensionMethods
-        /// <summary>
-        /// 根据生日取得年龄
-        /// </summary>
+        #region Extension
+        /// <summary> 根据生日取得年龄 </summary>
         public static string GetAgeByBirthDate(this DateTime BirthDate)
         {
             DateTime DateTimeNow = DateTime.Now;
@@ -242,12 +240,7 @@ namespace System
             return result;
         }
 
-        /// <summary>
-        /// 补齐小数位
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="digit"></param>
-        /// <returns></returns>
+        /// <summary> 补齐小数位 </summary> 
         public static string PadDigit(this string s, int digit)
         {
             string v = "0";
@@ -284,7 +277,8 @@ namespace System
             if (pIndex >= s.Length) return "";
 
             return s[pIndex];
-        }
+        } 
+        #endregion
 
         #region DataRow Extension
         /// <summary>
@@ -398,15 +392,25 @@ namespace System
             return data.Rows[rowIndex].GetValue(pColumnName);
         }
 
-        /// <summary>
-        /// 判断DataTable是否为空
-        /// </summary>
+        /// <summary>  判断DataTable是否为空 </summary>
         public static bool IsNullOrEmpty(this DataTable data)
         {
             return data == null || data.Rows.Count <= 0;
         }
         #endregion
 
+        #region DataSet Extension
+        public static DataTable GetDataTable(this DataSet set, string tableName)
+        {
+            if (set.IsNullOrEmpty()) return new DataTable();
+            if (!set.Tables.Contains(tableName)) return new DataTable();
+            return set.Tables[tableName];
+        }
+        /// <summary> 判断DataSet 是否为空 </summary> 
+        public static bool IsNullOrEmpty(this DataSet set)
+        {
+            return set == null || set.Tables.Count <= 0;
+        }
         #endregion
 
         #region 得到本周第一天或最后一天

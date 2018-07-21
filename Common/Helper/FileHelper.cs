@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Common
 {
-    public class FileHelper
+    public static class FileHelper
     {
         private static Action<byte[]> action;
         /// <summary>
@@ -45,6 +45,21 @@ namespace Common
                 this.stream = stream;
                 this.data = data;
             }
+        }
+        /// <summary>
+        /// 读取 文本文件
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        public static string ReadFile(string path, Encoding encoding)
+        {
+            string result = "";
+            using (StreamReader reader = new StreamReader(path, encoding))
+            {
+                result = reader.ReadToEnd();
+            }
+            return result;
         }
     }
 

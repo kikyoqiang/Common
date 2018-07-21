@@ -52,7 +52,7 @@
     <Compile Include="Delete\Class16.cs" />
     <Compile Include="Delete\Class17.cs" />
     <Compile Include="Class18.cs" />
-    <Compile Include="DataCommunication.cs" />
+    <Compile Include="Delete\DataCommunication.cs" />
     <Compile Include="设计模式\10组合模式\Graphics.cs" />
     <Compile Include="设计模式\09装饰者模式\Decorator.cs" />
     <Compile Include="设计模式\08桥接模式\RemoteControl.cs" />
