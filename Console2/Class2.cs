@@ -10,8 +10,19 @@ namespace Console2
     {
         static void Main()
         {
-            string s = "";
-            var a = s.ToDateStrHH();
+            bool ok = true;
+            Console.WriteLine("661");
+            if(ok)
+            {
+                Console.WriteLine("662");
+                goto aa;
+            }
+            Console.WriteLine("663");
+            Console.WriteLine("664");
+            aa:
+            
+            Console.WriteLine("665");
+
             Console.ReadKey();
 
         }

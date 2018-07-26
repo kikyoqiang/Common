@@ -11,6 +11,7 @@ namespace Common
 {
     public static class XmlHelper
     {
+        #region XmlSerializeInternal
         private static void XmlSerializeInternal(Stream stream, object o, Encoding encoding)
         {
             if (o == null)
@@ -31,8 +32,10 @@ namespace Common
                 serializer.Serialize(writer, o);
                 writer.Close();
             }
-        }
+        } 
+        #endregion
 
+        #region 将一个对象序列化为XML字符串
         /// <summary>
         /// 将一个对象序列化为XML字符串
         /// </summary>
@@ -51,8 +54,10 @@ namespace Common
                     return reader.ReadToEnd();
                 }
             }
-        }
+        } 
+        #endregion
 
+        #region 将一个对象按XML序列化的方式写入到一个文件
         /// <summary>
         /// 将一个对象按XML序列化的方式写入到一个文件
         /// </summary>
@@ -68,8 +73,10 @@ namespace Common
             {
                 XmlSerializeInternal(file, o, encoding);
             }
-        }
+        } 
+        #endregion
 
+        #region 从XML字符串中反序列化对象
         /// <summary>
         /// 从XML字符串中反序列化对象
         /// </summary>
@@ -92,8 +99,10 @@ namespace Common
                     return (T)mySerializer.Deserialize(sr);
                 }
             }
-        }
+        } 
+        #endregion
 
+        #region 读入一个文件，并按XML的方式反序列化对象。
         /// <summary>
         /// 读入一个文件，并按XML的方式反序列化对象。
         /// </summary>
@@ -111,15 +120,25 @@ namespace Common
             string xml = File.ReadAllText(path, encoding);
             return XmlDeserialize<T>(xml, encoding);
         }
+        #endregion
 
-        public static DataSet GetDataSet(string xmlData)
+        #region GetDataSet
+        /// <summary>
+        /// 把xml字符串 转换为DataSet
+        /// </summary>
+        /// <param name="xmlString"></param>
+        /// <returns></returns>
+        public static DataSet GetDataSet(string xmlString)
         {
             DataSet set = new DataSet();
-            using (StringReader reader = new StringReader(xmlData))
+            if (xmlString == null || xmlString.Length <= 0)
+                return set;
+            using (System.IO.StringReader reader = new System.IO.StringReader(xmlString))
             {
                 set.ReadXml(reader, XmlReadMode.InferTypedSchema);
             }
             return set;
         }
+        #endregion
     }
 }
