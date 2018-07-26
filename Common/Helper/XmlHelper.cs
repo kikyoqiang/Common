@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -109,6 +110,16 @@ namespace Common
 
             string xml = File.ReadAllText(path, encoding);
             return XmlDeserialize<T>(xml, encoding);
+        }
+
+        public static DataSet GetDataSet(string xmlData)
+        {
+            DataSet set = new DataSet();
+            using (StringReader reader = new StringReader(xmlData))
+            {
+                set.ReadXml(reader, XmlReadMode.InferTypedSchema);
+            }
+            return set;
         }
     }
 }
