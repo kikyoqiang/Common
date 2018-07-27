@@ -32,7 +32,7 @@ namespace Common
                 serializer.Serialize(writer, o);
                 writer.Close();
             }
-        } 
+        }
         #endregion
 
         #region 将一个对象序列化为XML字符串
@@ -54,7 +54,7 @@ namespace Common
                     return reader.ReadToEnd();
                 }
             }
-        } 
+        }
         #endregion
 
         #region 将一个对象按XML序列化的方式写入到一个文件
@@ -73,7 +73,7 @@ namespace Common
             {
                 XmlSerializeInternal(file, o, encoding);
             }
-        } 
+        }
         #endregion
 
         #region 从XML字符串中反序列化对象
@@ -99,7 +99,7 @@ namespace Common
                     return (T)mySerializer.Deserialize(sr);
                 }
             }
-        } 
+        }
         #endregion
 
         #region 读入一个文件，并按XML的方式反序列化对象。
@@ -120,5 +120,6 @@ namespace Common
             string xml = File.ReadAllText(path, encoding);
             return XmlDeserialize<T>(xml, encoding);
         }
+        #endregion
     }
 }
