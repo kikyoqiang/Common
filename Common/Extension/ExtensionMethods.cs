@@ -157,7 +157,7 @@ namespace System
         }
 
         /// <summary>
-        /// 判断object是否为空
+        /// 判断object是否为null
         /// </summary>
         public static bool IsNull(this object text)
         {
