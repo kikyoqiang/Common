@@ -19,9 +19,11 @@ namespace RestForm
             InitializeComponent();
 
             int endNum = int.Parse(ConfigurationManager.AppSettings["EndNum"]);
+            int showTime = int.Parse(ConfigurationManager.AppSettings["ShowTime"]);
+            this.timer1.Interval = showTime;
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             int jpgNum = new Random().Next(1, endNum);
-            string path = string.Format(@"{0}{1}.jpg", baseDirectory, jpgNum);
+            string path = string.Format(@"{0}\休息图片\{1}.jpg", baseDirectory, jpgNum);
             if (File.Exists(path))
                 this.pictureBox1.BackgroundImage = Image.FromFile(path);
 
