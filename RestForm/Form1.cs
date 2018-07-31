@@ -26,7 +26,7 @@ namespace RestForm
             string path = string.Format(@"{0}\休息图片\{1}.jpg", baseDirectory, jpgNum);
             if (File.Exists(path))
                 this.pictureBox1.BackgroundImage = Image.FromFile(path);
-
+            this.TopMost = true;
           
             // 初始化画板 Bitmap image = new Bitmap(pictureBox1.ClientSize.Width, pictureBox1.ClientSize.Height);
             // 获取背景层 Bitmap bg = (Bitmap)pictureBox1.BackgroundImage;
@@ -36,7 +36,6 @@ namespace RestForm
             //gb.DrawImage(bg, 0, 0); // 先绘制背景层 gb.DrawImage(image, 0, 0); // 再绘制绘画层
             //pictureBox1.BackgroundImage = canvas; // 设置为背景层
             //pictureBox1.Refresh(); pictureBox1.CreateGraphics().DrawImage(canvas, 0, 0);
-
 
             //Bitmap image = new Bitmap(pictureBox1.ClientSize.Width, pictureBox1.ClientSize.Height);
             //Bitmap bg = (Bitmap)pictureBox1.BackgroundImage;

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Console4
@@ -11,10 +12,18 @@ namespace Console4
     {
         static void Main(string[] args)
         {
-            Vegetable tomato = new Tomato();
-            tomato.CookVegetable();
+            SqlServerHelper.
+            Random random = new Random();
+            for (int i = 0; i < 1000; i++)
+            {
+                ThreadPool.QueueUserWorkItem(obj =>
+                {
+                    Thread.Sleep(1000 * random.Next(0, 5));
+                    Console.WriteLine("haha");
+                });
+            }
 
-
+            Console.ReadKey();
 
 
 
