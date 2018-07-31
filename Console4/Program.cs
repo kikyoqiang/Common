@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,8 +13,8 @@ namespace Console4
     {
         static void Main(string[] args)
         {
-            Vegetable tomato = new Tomato();
-            tomato.CookVegetable();
+            string ip = "127.0.0.1";
+            int port
 
 
 

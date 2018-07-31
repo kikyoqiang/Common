@@ -26,7 +26,7 @@ namespace RestForm
             string path = string.Format(@"{0}\休息图片\{1}.jpg", baseDirectory, jpgNum);
             if (File.Exists(path))
                 this.pictureBox1.BackgroundImage = Image.FromFile(path);
-
+            this.TopMost = true;
           
             // 初始化画板 Bitmap image = new Bitmap(pictureBox1.ClientSize.Width, pictureBox1.ClientSize.Height);
             // 获取背景层 Bitmap bg = (Bitmap)pictureBox1.BackgroundImage;
