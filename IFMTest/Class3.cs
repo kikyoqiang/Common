@@ -9,8 +9,14 @@ namespace IFMTest
     {
         static void Main()
         {
-            Console.WriteLine("22222");
-            Console.WriteLine();
+            string s = @"\\fff\\";
+            s.Replace(@"\\", @"\");
+            Console.WriteLine(s);
+
+
+
+
+            Console.ReadKey();
         }
     }
 }
