@@ -37,7 +37,6 @@ namespace RestForm
             //pictureBox1.BackgroundImage = canvas; // 设置为背景层
             //pictureBox1.Refresh(); pictureBox1.CreateGraphics().DrawImage(canvas, 0, 0);
 
-
             //Bitmap image = new Bitmap(pictureBox1.ClientSize.Width, pictureBox1.ClientSize.Height);
             //Bitmap bg = (Bitmap)pictureBox1.BackgroundImage;
             //Bitmap canvas = new Bitmap(pictureBox1.ClientSize.Width, pictureBox1.ClientSize.Height);
