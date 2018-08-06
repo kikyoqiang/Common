@@ -56,6 +56,7 @@
     <Compile Include="Sort\SequentSearchSymbolTable.cs" />
     <Compile Include="Sort\PriorityQueue.cs" />
     <Compile Include="Helper\SqlServerHelper.cs" />
+    <Compile Include="SpecialCodeHelper.cs" />
     <Compile Include="StackQueue\PriorityQueue.cs" />
     <Compile Include="Sort\BasicSort.cs" />
     <Compile Include="Sort\MergeSort.cs" />

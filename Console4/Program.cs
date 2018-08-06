@@ -13,9 +13,7 @@ namespace Console4
     {
         static void Main(string[] args)
         {
-            string ip = "127.0.0.1";
-            int port
-
+            
 
 
 
