@@ -15,11 +15,7 @@ namespace IFMTest
     {
         static void Main()
         {
-            string s = "嘎嘎";
-            var a = SpecialCodeHelper.ToBase64String(s);
-
-            var b = SpecialCodeHelper.UnBase64String(a);
-
+            var a = SystemHelper.GetMacAddress();
             Console.ReadKey();
         }
 
@@ -29,7 +25,6 @@ namespace IFMTest
             {
                 Thread.Sleep(1000);
                 string s2 = i.ToSafeString();
-                //LogHelper.Instance.WriteInfo(s2);
             }
         }
         private static void Queue()

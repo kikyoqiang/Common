@@ -15,5 +15,17 @@ namespace IFM_Form
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            System.Threading.ThreadPool.QueueUserWorkItem(obj =>
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    System.Threading.Thread.Sleep(2000);
+                    Common.LogHelper.Instance.WriteInfo(i.ToSafeString());
+                }
+            });
+        }
     }
 }
