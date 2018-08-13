@@ -22,6 +22,14 @@ namespace System
             return s == null || s.Trim().Length == 0;
         }
 
+        #region 判断string不为空
+        /// <summary> 判断string不为空 </summary>
+        public static bool IsNotEmpty(this string s)
+        {
+            return s.IsNullOrEmpty() == false;
+        }
+        #endregion
+
         /// <summary>
         /// 将字符串转换为Int数据类型并返回，如果转换不成功，则返回指定的替代值。
         /// </summary>

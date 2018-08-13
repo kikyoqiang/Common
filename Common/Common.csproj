@@ -57,7 +57,7 @@
     <Compile Include="Sort\SequentSearchSymbolTable.cs" />
     <Compile Include="Sort\PriorityQueue.cs" />
     <Compile Include="Helper\SqlServerHelper.cs" />
-    <Compile Include="SpecialCodeHelper.cs" />
+    <Compile Include="Helper\SpecialCodeHelper.cs" />
     <Compile Include="StackQueue\PriorityQueue.cs" />
     <Compile Include="Sort\BasicSort.cs" />
     <Compile Include="Sort\MergeSort.cs" />
@@ -70,7 +70,7 @@
     <Compile Include="Helper\XmlHelper.cs" />
     <Compile Include="Sort\SymbolTables.cs" />
     <Compile Include="Extension\Utility.cs" />
-    <Compile Include="SystemHelper.cs" />
+    <Compile Include="Helper\SystemHelper.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
