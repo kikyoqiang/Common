@@ -15,10 +15,13 @@ namespace IFMTest
     {
         static void Main()
         {
-            var a = SystemHelper.GetMacAddress();
+
+
+
             Console.ReadKey();
         }
 
+        #region MyRegion
         private static void Queue2()
         {
             for (int i = 0; i < 20; i++)
@@ -54,6 +57,7 @@ namespace IFMTest
                     break;
                 }
             }
-        }
+        } 
+        #endregion
     }
 }
