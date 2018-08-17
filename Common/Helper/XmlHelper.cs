@@ -122,7 +122,8 @@ namespace Common
         }
         #endregion
 
-        #region GetDataSet
+        #region 从xml字符串读取DataSet
+        /// <summary> 从xml字符串读取DataSet </summary>
         public static DataSet GetDataSet(string xmlString)
         {
             DataSet set = new DataSet();
@@ -133,6 +134,35 @@ namespace Common
                 set.ReadXml(reader, XmlReadMode.InferTypedSchema);
             }
             return set;
+        }
+        #endregion
+
+        #region 将DataSet转换为xml
+        /// <summary> 将DataSet转换为xml </summary>
+        public static string ConvertDataSetToXML(System.Data.DataSet xmlDS)
+        {
+            MemoryStream stream = null;
+            System.Xml.XmlTextWriter writer = null;
+            try
+            {
+                stream = new MemoryStream();
+                writer = new System.Xml.XmlTextWriter(stream, Encoding.UTF8);       //从stream装载到XmlTextReader
+                xmlDS.WriteXml(writer);     //用WriteXml方法写入文件.
+                int count = (int)stream.Length;
+                byte[] arr = new byte[count];
+                stream.Seek(0, SeekOrigin.Begin);
+                stream.Read(arr, 0, count);
+                UTF8Encoding utf = new UTF8Encoding();
+                return utf.GetString(arr).Trim().Replace("\n", "");
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (writer != null) writer.Close();
+            }
         }
         #endregion
     }
