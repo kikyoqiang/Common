@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyServiceRemind", "MyServic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestForm", "RestForm\RestForm.csproj", "{71CC3725-D40A-4FB3-B909-F44B8241DDFD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsForms", "WindowsForms\WindowsForms.csproj", "{51CBA983-59C3-452E-8780-3B9826EB0166}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{71CC3725-D40A-4FB3-B909-F44B8241DDFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71CC3725-D40A-4FB3-B909-F44B8241DDFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71CC3725-D40A-4FB3-B909-F44B8241DDFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51CBA983-59C3-452E-8780-3B9826EB0166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51CBA983-59C3-452E-8780-3B9826EB0166}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51CBA983-59C3-452E-8780-3B9826EB0166}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51CBA983-59C3-452E-8780-3B9826EB0166}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
