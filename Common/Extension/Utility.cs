@@ -257,5 +257,11 @@ namespace System
             }
             return age < 0 ? 0 : age;
         }
+
+        public static bool IsIP(string IP)
+        {
+            string regex = @"^((([1-9]?\d|1\d\d|2[0-4]\d|25[0-5])\.){3}([1-9]?\d|1\d\d|2[0-4]\d|25[0-5]))$";
+            return System.Text.RegularExpressions.Regex.IsMatch(IP, regex);
+        }
     }
 }
