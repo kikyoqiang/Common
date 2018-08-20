@@ -11,6 +11,7 @@ namespace IFM_Form
 {
     public partial class Form1 : Form
     {
+        public event Func<object, EventArgs, Action> ClickLoading;
         public Form1()
         {
             InitializeComponent();
@@ -18,14 +19,20 @@ namespace IFM_Form
 
         private void button1_Click(object sender, EventArgs e)
         {
-            System.Threading.ThreadPool.QueueUserWorkItem(obj =>
+            if (ClickLoading == null)
+                return;
+            var actions = ClickLoading.GetInvocationList();
+            var action_0 = actions[0];
+            ((Func<object, EventArgs, Action>)action_0).BeginInvoke(this, e, new AsyncCallback(r =>
             {
-                for (int i = 0; i < 100; i++)
+                Action callback = ((Func<object, EventArgs, Action>)ClickLoading.GetInvocationList()[0]).EndInvoke(r);
+
+                this.BeginInvoke(new Action(() =>
                 {
-                    System.Threading.Thread.Sleep(2000);
-                    Common.LogHelper.Instance.WriteInfo(i.ToSafeString());
-                }
-            });
+                    //panel1.Visible = false;
+                    callback?.Invoke();
+                }));
+            }), null);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace MyServiceRemind
         {
             InitializeComponent();
             filePath = AppDomain.CurrentDomain.BaseDirectory + "MyService.Log";
-        } 
+        }
         #endregion
 
         #region OnStart
@@ -51,7 +51,10 @@ namespace MyServiceRemind
                         Thread.Sleep(sleepTime * 1000);
                         if (DateTime.Now.Hour >= startHour && DateTime.Now.Hour <= endHour)
                         {
-                            ShowForm(startPath);
+                            if (!IsRunLol())
+                            {
+                                ShowForm(startPath);
+                            }
                         }
                     }
                 }
@@ -137,6 +140,14 @@ namespace MyServiceRemind
             }
         }
         #endregion
+
+        private bool IsRunLol()
+        {
+            Process[] process = Process.GetProcesses();
+            List<Process> list = process.ToList();
+            Process lol = list.Find(e => e.ProcessName.Contains("Legends"));
+            return lol != null;
+        }
     }
 }
 
