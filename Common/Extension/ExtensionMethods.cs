@@ -399,11 +399,21 @@ namespace System
 
             return data.Rows[rowIndex].GetValue(pColumnName);
         }
-
-        /// <summary>  判断DataTable是否为空 </summary>
+        
+        /// <summary>
+        /// 判断DataTable 是否为空
+        /// </summary>
         public static bool IsNullOrEmpty(this DataTable data)
         {
             return data == null || data.Rows.Count <= 0;
+        }
+
+        /// <summary>
+        /// 判断DataTable 不为空
+        /// </summary>
+        public static bool IsNotEmpty(this DataTable data)
+        {
+            return data.IsNullOrEmpty() == false;
         }
         #endregion
 
@@ -536,5 +546,6 @@ namespace System
         }
 
         #endregion
+
     }
 }
