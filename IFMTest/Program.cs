@@ -1,6 +1,8 @@
 ﻿using Common;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -15,9 +17,10 @@ namespace IFMTest
     {
         static void Main()
         {
-
-
-
+            DataTable dt = new DataTable();
+            var a = dt.IsNotEmpty();
+            var b = dt.IsNullOrEmpty();
+            List<int> ss = new List<int>();
             Console.ReadKey();
         }
 
@@ -57,7 +60,7 @@ namespace IFMTest
                     break;
                 }
             }
-        } 
+        }
         #endregion
     }
 }
