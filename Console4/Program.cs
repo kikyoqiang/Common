@@ -1,6 +1,8 @@
 ﻿using Common;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -13,27 +15,55 @@ namespace Console4
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main11(string[] args)
         {
-            string ip = "127.0.0.1";
-            int port
+            ObservableCollection<string> list = new ObservableCollection<string>() { "1" };
 
+            list.CollectionChanged += list_CollectionChanged;
 
-                string result = string.Empty;
-
-                Console.WriteLine("转化的二进制为：" + ConvertToBinary(out result, num));
-
-
+            for (int i = 0; i < 1000; i++)
+            {
+                if (i % 3 == 1)
+                {
+                    list.RemoveAt(0);
+                }
+                else
+                {
+                    list.Add(i.ToString());
+                }
             }
-            Console.ReadKey();
+
+            Console.WriteLine("全部结束！！！");
+
+            Console.Read();
         }
-        static string ConvertToBinary(out string str, int num)
+        static void list_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            str = string.Empty;
-            if (num == 0)
-                return str;
-            ConvertToBinary(out str, num / 2);
-            return str += num % 2;
+            //为了不阻止主线程Add，事件用 “工作线程”处理
+            Task.Factory.StartNew((o) =>
+            {
+                var obj = o as NotifyCollectionChangedEventArgs;
+
+                switch (obj.Action)
+                {
+                    case NotifyCollectionChangedAction.Add:
+                        Console.WriteLine("当前线程:{0}, 操作是:{1} 数据:{2}", Thread.CurrentThread.ManagedThreadId, obj.Action.ToString(), obj.NewItems[0]);
+                        break;
+                    case NotifyCollectionChangedAction.Move:
+                        break;
+                    case NotifyCollectionChangedAction.Remove:
+                        Console.WriteLine("当前线程:{0}, 操作是:{1} 数据:{2}", Thread.CurrentThread.ManagedThreadId, obj.Action.ToString(), obj.OldItems[0]);
+                        break;
+                    case NotifyCollectionChangedAction.Replace:
+                        break;
+                    case NotifyCollectionChangedAction.Reset:
+                        break;
+                    default:
+                        break;
+                }
+
+                Thread.Sleep(1000);
+            }, e);
         }
     }
 }

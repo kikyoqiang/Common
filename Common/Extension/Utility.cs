@@ -19,8 +19,8 @@ namespace System
         private static DateTime sourse = DateTime.Parse("2018-01-01 00:00:00");
         #endregion
 
+        #region 检测WebService是否可用
         /// <summary> 检测WebService是否可用 </summary> 
-        #region IsWebServiceAvaiable
         public static bool IsWebServiceAvaiable(string url)
         {
             bool bRet = false;
@@ -63,7 +63,8 @@ namespace System
         }
         #endregion
 
-        #region InvokeWebService
+        #region 根据参数执行WebService
+        /// <summary> 根据参数执行WebService </summary> 
         public static object InvokeWebService(string url, string classname, string methodname, object[] args)
         {
             try
@@ -125,7 +126,8 @@ namespace System
         }
         #endregion
 
-        #region GetClassName
+        #region 根据WebService获取类名
+        /// <summary> 根据WebService获取类名 </summary> 
         private static string GetClassName(string url)
         {
             //假如URL为"http://localhost/InvokeService/Service1.asmx"
@@ -136,8 +138,8 @@ namespace System
         }
         #endregion
 
-        /// <summary> GetMD5FromFile </summary>
-        #region GetMD5FromFile
+        #region 从路径获取文件的MD5
+        /// <summary> 从路径获取文件的MD5 </summary>
         public static string GetMD5FromFile(string filePath)
         {
             FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
@@ -163,8 +165,8 @@ namespace System
         }
         #endregion
 
-        /// <summary> GetMD5FromFileStream </summary>
-        #region GetMD5FromFileStream
+        #region 获取字节流的md5值
+        /// <summary> 获取字节流的md5值 </summary>
         public static string GetMD5FromFileStream(byte[] buffer)
         {
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
@@ -186,8 +188,8 @@ namespace System
         }
         #endregion
 
+        #region 根据时间 获取周几Int
         /// <summary> 根据时间 获取周几Int </summary>
-        #region GetWeekInt
         public static int GetWeekInt(string dateTimeStr)
         {
             DateTime dateTime = DateTime.Now;
@@ -199,8 +201,8 @@ namespace System
         }
         #endregion
 
+        #region 根据时间 获取周几Int
         /// <summary> 根据时间 获取周几Int </summary>
-        #region GetWeekInt
         public static int GetWeekInt(DateTime dateTime)
         {
             int week = -1;
@@ -212,8 +214,8 @@ namespace System
         }
         #endregion
 
+        #region 获得目标日期 是单周 还是双周 根据种子日期
         /// <summary>获得目标日期 是单周 还是双周 根据种子日期</summary> 
-        #region GetWeekByDate
         public static string GetWeekByDate(DateTime Target)
         {
             string result = string.Empty;
@@ -230,22 +232,23 @@ namespace System
         }
         #endregion
 
+        #region 获得指定时间 是一年中的第几周
         /// <summary>获得指定时间 是一年中的第几周</summary> 
-        #region GetWeekIntOfYear
         public static int GetWeekIntOfYear(DateTime dateTime)
         {
             return new GregorianCalendar().GetWeekOfYear(dateTime, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
         }
         #endregion
 
+        #region 获得指定时间 单周还是双周
         /// <summary>获得指定时间 单周还是双周</summary> 
-        #region GetWeekStrOfYear
         public static string GetWeekStrOfYear(DateTime dateTime)
         {
             return GetWeekIntOfYear(dateTime) % 2 == 1 ? "单周" : "双周";
         }
         #endregion
 
+        #region 计算年龄
         /// <summary> 计算年龄 </summary>
         public static int GetAgeByBirthDay(DateTime birthDay)
         {
@@ -258,10 +261,34 @@ namespace System
             return age < 0 ? 0 : age;
         }
 
+        #endregion
+
+        #region 是否是IP
+        /// <summary>
+        /// 是否是IP
+        /// </summary>
         public static bool IsIP(string IP)
         {
             string regex = @"^((([1-9]?\d|1\d\d|2[0-4]\d|25[0-5])\.){3}([1-9]?\d|1\d\d|2[0-4]\d|25[0-5]))$";
             return System.Text.RegularExpressions.Regex.IsMatch(IP, regex);
-        }
+        } 
+        #endregion
+
+        #region 10进制转换2进制
+        /// <summary>
+        /// 10进制转换2进制
+        /// </summary>
+        /// <param name="str">返回的2进制字符串</param>
+        /// <param name="num">需要转换的10进制数</param>
+        /// <returns></returns>
+        public static string ConvertToBinary(out string str, int num)
+        {
+            str = string.Empty;
+            if (num == 0)
+                return str;
+            ConvertToBinary(out str, num / 2);
+            return str += num % 2;
+        } 
+        #endregion
     }
 }

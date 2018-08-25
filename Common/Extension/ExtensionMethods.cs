@@ -405,6 +405,10 @@ namespace System
         {
             return data == null || data.Rows.Count <= 0;
         }
+        public static bool IsNotEmpty(this DataTable data)
+        {
+            return data.IsNullOrEmpty() == false;
+        }
         #endregion
 
         #region DataSet Extension
