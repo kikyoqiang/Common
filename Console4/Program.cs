@@ -1,6 +1,8 @@
 ﻿using Common;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -13,40 +15,55 @@ namespace Console4
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main11(string[] args)
         {
-            Process[] process = Process.GetProcesses();
-            List<Process> list = process.ToList();
-            Process lol = list.Find(e => e.ProcessName.Contains(@"Legends"));
-            for (int i = 0; i < process.Length; i++)
+            ObservableCollection<string> list = new ObservableCollection<string>() { "1" };
+
+            list.CollectionChanged += list_CollectionChanged;
+
+            for (int i = 0; i < 1000; i++)
             {
-                if (process[i].ProcessName.Contains("Legends"))
+                if (i % 3 == 1)
                 {
-                    process[i].Kill();
+                    list.RemoveAt(0);
+                }
+                else
+                {
+                    list.Add(i.ToString());
                 }
             }
-            return;
-            while (true)
-            {
-                Console.WriteLine("请输入一个十进制数：");
 
-                int num = int.Parse(Console.ReadLine());
+            Console.WriteLine("全部结束！！！");
 
-                string result = string.Empty;
-
-                Console.WriteLine("转化的二进制为：" + ConvertToBinary(out result, num));
-
-
-            }
-            Console.ReadKey();
+            Console.Read();
         }
-        static string ConvertToBinary(out string str, int num)
+        static void list_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            str = string.Empty;
-            if (num == 0)
-                return str;
-            ConvertToBinary(out str, num / 2);
-            return str += num % 2;
+            //为了不阻止主线程Add，事件用 “工作线程”处理
+            Task.Factory.StartNew((o) =>
+            {
+                var obj = o as NotifyCollectionChangedEventArgs;
+
+                switch (obj.Action)
+                {
+                    case NotifyCollectionChangedAction.Add:
+                        Console.WriteLine("当前线程:{0}, 操作是:{1} 数据:{2}", Thread.CurrentThread.ManagedThreadId, obj.Action.ToString(), obj.NewItems[0]);
+                        break;
+                    case NotifyCollectionChangedAction.Move:
+                        break;
+                    case NotifyCollectionChangedAction.Remove:
+                        Console.WriteLine("当前线程:{0}, 操作是:{1} 数据:{2}", Thread.CurrentThread.ManagedThreadId, obj.Action.ToString(), obj.OldItems[0]);
+                        break;
+                    case NotifyCollectionChangedAction.Replace:
+                        break;
+                    case NotifyCollectionChangedAction.Reset:
+                        break;
+                    default:
+                        break;
+                }
+
+                Thread.Sleep(1000);
+            }, e);
         }
     }
 }
