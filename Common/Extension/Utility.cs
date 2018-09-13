@@ -271,7 +271,7 @@ namespace System
         {
             string regex = @"^((([1-9]?\d|1\d\d|2[0-4]\d|25[0-5])\.){3}([1-9]?\d|1\d\d|2[0-4]\d|25[0-5]))$";
             return System.Text.RegularExpressions.Regex.IsMatch(IP, regex);
-        } 
+        }
         #endregion
 
         #region 10进制转换2进制
@@ -288,7 +288,21 @@ namespace System
                 return str;
             ConvertToBinary(out str, num / 2);
             return str += num % 2;
-        } 
+        }
+        #endregion
+
+        #region 读取文件
+        /// <summary>  读取文件 </summary>
+        public static string ReadFile(string path, Encoding encoding = null)
+        {
+            string result = "";
+            Encoding realEncoding = encoding ?? Encoding.UTF8;
+            using (StreamReader reader = new StreamReader(path, realEncoding))
+            {
+                result = reader.ReadToEnd();
+            }
+            return result;
+        }
         #endregion
     }
 }
