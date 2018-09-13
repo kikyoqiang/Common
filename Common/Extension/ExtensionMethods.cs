@@ -285,7 +285,7 @@ namespace System
             if (pIndex >= s.Length) return "";
 
             return s[pIndex];
-        } 
+        }
         #endregion
 
         #region DataRow Extension
@@ -399,7 +399,7 @@ namespace System
 
             return data.Rows[rowIndex].GetValue(pColumnName);
         }
-        
+
         /// <summary>
         /// 判断DataTable 是否为空
         /// </summary>
@@ -547,5 +547,19 @@ namespace System
 
         #endregion
 
+        #region OddItems
+        public static IEnumerable<T> OddItems<T>(this IEnumerable<T> list)
+        {
+            if (list.IsNull())
+                throw new ArgumentException(nameof(list));
+            for (int i = 0; i < list.Count(); i++)
+            {
+                if (i % 2 == 0)
+                {
+                    yield return list.ElementAt(i);
+                }
+            }
+        } 
+        #endregion
     }
 }

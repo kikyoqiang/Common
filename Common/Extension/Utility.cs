@@ -247,6 +247,7 @@ namespace System
         #endregion
 
         /// <summary> 计算年龄 </summary>
+        #region 计算年龄
         public static int GetAgeByBirthDay(DateTime birthDay)
         {
             DateTime now = DateTime.Now;
@@ -256,12 +257,31 @@ namespace System
                 age--;
             }
             return age < 0 ? 0 : age;
-        }
+        } 
+        #endregion
 
+        #region IsIP
         public static bool IsIP(string IP)
         {
             string regex = @"^((([1-9]?\d|1\d\d|2[0-4]\d|25[0-5])\.){3}([1-9]?\d|1\d\d|2[0-4]\d|25[0-5]))$";
             return System.Text.RegularExpressions.Regex.IsMatch(IP, regex);
+        } 
+        #endregion
+
+        #region 读取文件
+        /// <summary>
+        /// 读取文件
+        /// </summary>
+        public static string ReadFile(string path, Encoding encoding = null)
+        {
+            string result = "";
+            Encoding realEncoding = encoding ?? Encoding.UTF8;
+            using (StreamReader reader = new StreamReader(path, realEncoding))
+            {
+                result = reader.ReadToEnd();
+            }
+            return result;
         }
+        #endregion
     }
 }
