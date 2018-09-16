@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.edi.hdr.goodwill.com/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="HdrQueryDataService" targetNamespace="http://ws.edi.hdr.goodwill.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://ws.edi.hdr.goodwill.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="queryData" type="tns:queryData" />
+      <xs:element name="queryDataResponse" type="tns:queryDataResponse" />
+      <xs:element name="testWS" type="tns:testWS" />
+      <xs:element name="testWSResponse" type="tns:testWSResponse" />
+      <xs:complexType name="testWS">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="testWSResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="queryData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="pInput" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="queryDataResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="queryDataResponse">
+    <wsdl:part name="parameters" element="tns:queryDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="testWS">
+    <wsdl:part name="parameters" element="tns:testWS" />
+  </wsdl:message>
+  <wsdl:message name="queryData">
+    <wsdl:part name="parameters" element="tns:queryData" />
+  </wsdl:message>
+  <wsdl:message name="testWSResponse">
+    <wsdl:part name="parameters" element="tns:testWSResponse" />
+  </wsdl:message>
+  <wsdl:portType name="HdrQueryDataWsImpl">
+    <wsdl:operation name="testWS">
+      <wsdl:input name="testWS" message="tns:testWS" />
+      <wsdl:output name="testWSResponse" message="tns:testWSResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="queryData">
+      <wsdl:input name="queryData" message="tns:queryData" />
+      <wsdl:output name="queryDataResponse" message="tns:queryDataResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HdrQueryDataServiceSoapBinding" type="tns:HdrQueryDataWsImpl">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="testWS">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="testWS">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="testWSResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="queryData">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="queryData">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="queryDataResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HdrQueryDataService">
+    <wsdl:port name="HdrQueryDataWsImplPort" binding="tns:HdrQueryDataServiceSoapBinding">
+      <soap:address location="http://10.2.2.71:8084/hdr-edi/ws/hdrQueryDataWS" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

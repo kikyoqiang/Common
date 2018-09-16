@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://JetSunCRM/WebService/svrWebService" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://JetSunCRM/WebService/svrWebService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://JetSunCRM/WebService/svrWebService">
+      <s:element name="HISWebService">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginPassWord" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PropertyValueList" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HISWebServiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HISWebServiceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModifyEmployeePassWord">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PropertyValueList" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModifyEmployeePassWordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ModifyEmployeePassWordResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HISWebServiceSoapIn">
+    <wsdl:part name="parameters" element="tns:HISWebService" />
+  </wsdl:message>
+  <wsdl:message name="HISWebServiceSoapOut">
+    <wsdl:part name="parameters" element="tns:HISWebServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ModifyEmployeePassWordSoapIn">
+    <wsdl:part name="parameters" element="tns:ModifyEmployeePassWord" />
+  </wsdl:message>
+  <wsdl:message name="ModifyEmployeePassWordSoapOut">
+    <wsdl:part name="parameters" element="tns:ModifyEmployeePassWordResponse" />
+  </wsdl:message>
+  <wsdl:message name="HISWebServiceHttpGetIn">
+    <wsdl:part name="LoginName" type="s:string" />
+    <wsdl:part name="LoginPassWord" type="s:string" />
+    <wsdl:part name="PropertyValueList" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="HISWebServiceHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ModifyEmployeePassWordHttpGetIn">
+    <wsdl:part name="PropertyValueList" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ModifyEmployeePassWordHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="HISWebServiceHttpPostIn">
+    <wsdl:part name="LoginName" type="s:string" />
+    <wsdl:part name="LoginPassWord" type="s:string" />
+    <wsdl:part name="PropertyValueList" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="HISWebServiceHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ModifyEmployeePassWordHttpPostIn">
+    <wsdl:part name="PropertyValueList" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ModifyEmployeePassWordHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="WebServiceSoap">
+    <wsdl:operation name="HISWebService">
+      <wsdl:input message="tns:HISWebServiceSoapIn" />
+      <wsdl:output message="tns:HISWebServiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifyEmployeePassWord">
+      <wsdl:input message="tns:ModifyEmployeePassWordSoapIn" />
+      <wsdl:output message="tns:ModifyEmployeePassWordSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WebServiceHttpGet">
+    <wsdl:operation name="HISWebService">
+      <wsdl:input message="tns:HISWebServiceHttpGetIn" />
+      <wsdl:output message="tns:HISWebServiceHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifyEmployeePassWord">
+      <wsdl:input message="tns:ModifyEmployeePassWordHttpGetIn" />
+      <wsdl:output message="tns:ModifyEmployeePassWordHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WebServiceHttpPost">
+    <wsdl:operation name="HISWebService">
+      <wsdl:input message="tns:HISWebServiceHttpPostIn" />
+      <wsdl:output message="tns:HISWebServiceHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifyEmployeePassWord">
+      <wsdl:input message="tns:ModifyEmployeePassWordHttpPostIn" />
+      <wsdl:output message="tns:ModifyEmployeePassWordHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WebServiceSoap" type="tns:WebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HISWebService">
+      <soap:operation soapAction="http://JetSunCRM/WebService/svrWebService/HISWebService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyEmployeePassWord">
+      <soap:operation soapAction="http://JetSunCRM/WebService/svrWebService/ModifyEmployeePassWord" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebServiceSoap12" type="tns:WebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HISWebService">
+      <soap12:operation soapAction="http://JetSunCRM/WebService/svrWebService/HISWebService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyEmployeePassWord">
+      <soap12:operation soapAction="http://JetSunCRM/WebService/svrWebService/ModifyEmployeePassWord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebServiceHttpGet" type="tns:WebServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="HISWebService">
+      <http:operation location="/HISWebService" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyEmployeePassWord">
+      <http:operation location="/ModifyEmployeePassWord" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebServiceHttpPost" type="tns:WebServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="HISWebService">
+      <http:operation location="/HISWebService" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyEmployeePassWord">
+      <http:operation location="/ModifyEmployeePassWord" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebService">
+    <wsdl:port name="WebServiceSoap" binding="tns:WebServiceSoap">
+      <soap:address location="http://192.168.31.11/TXWEB/HISWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebServiceSoap12" binding="tns:WebServiceSoap12">
+      <soap12:address location="http://192.168.31.11/TXWEB/HISWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebServiceHttpGet" binding="tns:WebServiceHttpGet">
+      <http:address location="http://192.168.31.11/TXWEB/HISWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebServiceHttpPost" binding="tns:WebServiceHttpPost">
+      <http:address location="http://192.168.31.11/TXWEB/HISWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
