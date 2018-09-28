@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestForm", "RestForm\RestFo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC", "MVC\MVC.csproj", "{6A9E5EBC-C3FE-49F7-88E5-5CF00C4A1878}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console5", "Console5\Console5.csproj", "{255E6428-557A-41A7-A840-723C98F6707D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console6", "Console6\Console6.csproj", "{D5FD11CA-E47B-4C9C-A357-DFEAD5E3F9AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,14 @@ Global
 		{6A9E5EBC-C3FE-49F7-88E5-5CF00C4A1878}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A9E5EBC-C3FE-49F7-88E5-5CF00C4A1878}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A9E5EBC-C3FE-49F7-88E5-5CF00C4A1878}.Release|Any CPU.Build.0 = Release|Any CPU
+		{255E6428-557A-41A7-A840-723C98F6707D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{255E6428-557A-41A7-A840-723C98F6707D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{255E6428-557A-41A7-A840-723C98F6707D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{255E6428-557A-41A7-A840-723C98F6707D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5FD11CA-E47B-4C9C-A357-DFEAD5E3F9AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5FD11CA-E47B-4C9C-A357-DFEAD5E3F9AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5FD11CA-E47B-4C9C-A357-DFEAD5E3F9AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5FD11CA-E47B-4C9C-A357-DFEAD5E3F9AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
