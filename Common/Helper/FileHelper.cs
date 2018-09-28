@@ -52,10 +52,11 @@ namespace Common
         /// <param name="path"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static string ReadFile(string path, Encoding encoding)
+        public static string ReadFile(string path, Encoding encoding = null)
         {
             string result = "";
-            using (StreamReader reader = new StreamReader(path, encoding))
+            Encoding realyEncoding = encoding ?? Encoding.UTF8;
+            using (StreamReader reader = new StreamReader(path, realyEncoding))
             {
                 result = reader.ReadToEnd();
             }

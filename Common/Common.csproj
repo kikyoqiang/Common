@@ -46,7 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Other\DataTableConfig.cs" />
     <Compile Include="Helper\FileHelper.cs" />
+    <Compile Include="Helper\OracleHelper.cs" />
     <Compile Include="Other\Category.cs" />
     <Compile Include="Helper\CacheHelper.cs" />
     <Compile Include="Extension\ExtensionMethods.cs" />
