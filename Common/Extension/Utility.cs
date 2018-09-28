@@ -304,5 +304,19 @@ namespace System
             return result;
         }
         #endregion
+
+        #region IsContainsNum
+        public static bool IsContainsNum(string text)
+        {
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (text[i] >= 48 && text[i] <= 57)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        #endregion
     }
 }

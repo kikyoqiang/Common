@@ -10,7 +10,6 @@ namespace IFMTest
     {
         static void Main()
         {
-
             Console.ReadKey();
         }
     }
