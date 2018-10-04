@@ -8,7 +8,7 @@ namespace Common
     /// <summary>优先级队列</summary>
     public class PriorityQueue2<T> where T : IComparable<T>
     {
-        static T[] pq;
+        static T[] pq = null;
         static int N;
         public static void Insert(T s)
         {

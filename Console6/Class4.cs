@@ -9,7 +9,7 @@ namespace Console6
 {
     class Class4
     {
-        static void Main()
+        static void Main22()
         {
             //IMyList<Dog> myDogs = new MyList<Dog>();
 

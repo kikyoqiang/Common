@@ -13,10 +13,6 @@ namespace Console6
     {
         static void Main22(string[] args)
         {
-            if (false)
-            {
-                goto AA;
-            }
             Console6.ServiceReference1.PUB0018SoapClient p = new ServiceReference1.PUB0018SoapClient();
             string PATPatientID = "0001143418";
             string PAADMVisitNumber = "2066900";
@@ -50,8 +46,7 @@ namespace Console6
             //Log("获取患者 医嘱 返回", result3);
 
             //===========================================================================================
-
-            AA:
+            
             string PATPatientID2 = "00001143418";
             string PAADMVisitNumber2 = "1722839";//1722839 2066900
 
