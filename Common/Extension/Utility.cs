@@ -1,14 +1,7 @@
 ﻿using System;
-using System.CodeDom;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
 using System.Text;
-using System.Web.Services.Description;
 
 namespace System
 {
@@ -24,16 +17,16 @@ namespace System
         public static bool IsWebServiceAvaiable(string url)
         {
             bool bRet = false;
-            HttpWebRequest myHttpWebRequest = null;
+            Net.HttpWebRequest myHttpWebRequest = null;
             try
             {
                 System.GC.Collect();
 
-                myHttpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                myHttpWebRequest = (Net.HttpWebRequest)Net.WebRequest.Create(url);
                 myHttpWebRequest.Timeout = 60000;
                 myHttpWebRequest.KeepAlive = false;
                 myHttpWebRequest.ServicePoint.ConnectionLimit = 200;
-                using (HttpWebResponse myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse())
+                using (Net.HttpWebResponse myHttpWebResponse = (Net.HttpWebResponse)myHttpWebRequest.GetResponse())
                 {
                     bRet = true;
                     if (myHttpWebResponse != null)
@@ -42,7 +35,7 @@ namespace System
                     }
                 }
             }
-            catch (WebException e)
+            catch (Net.WebException e)
             {
                 Common.LogHelper.Instance.WriteError(String.Format("网络连接错误 : {0}", e.Message));
             }
@@ -75,22 +68,22 @@ namespace System
                     classname = GetClassName(url);
                 }
                 //获取服务描述语言(WSDL)
-                WebClient wc = new WebClient();
+                Net.WebClient wc = new Net.WebClient();
                 Stream stream = wc.OpenRead(url + "?WSDL");//【1】
-                ServiceDescription sd = ServiceDescription.Read(stream);//【2】
-                ServiceDescriptionImporter sdi = new ServiceDescriptionImporter();//【3】
+                Web.Services.Description.ServiceDescription sd = Web.Services.Description.ServiceDescription.Read(stream);//【2】
+                Web.Services.Description.ServiceDescriptionImporter sdi = new Web.Services.Description.ServiceDescriptionImporter();//【3】
                 sdi.AddServiceDescription(sd, "", "");
-                CodeNamespace cn = new CodeNamespace(_namespace);//【4】
+                CodeDom.CodeNamespace cn = new CodeDom.CodeNamespace(_namespace);//【4】
                 //生成客户端代理类代码
-                CodeCompileUnit ccu = new CodeCompileUnit();//【5】
+                CodeDom.CodeCompileUnit ccu = new CodeDom.CodeCompileUnit();//【5】
                 ccu.Namespaces.Add(cn);
                 sdi.Import(cn, ccu);
                 //CSharpCodeProvider csc = new CSharpCodeProvider();//【6】
-                CodeDomProvider csc = CodeDomProvider.CreateProvider("CSharp");
+                CodeDom.Compiler.CodeDomProvider csc = CodeDom.Compiler.CodeDomProvider.CreateProvider("CSharp");
                 //ICodeCompiler icc = csc.CreateCompiler();//【7】
 
                 //设定编译器的参数
-                CompilerParameters cplist = new CompilerParameters();//【8】
+                CodeDom.Compiler.CompilerParameters cplist = new CodeDom.Compiler.CompilerParameters();//【8】
                 cplist.GenerateExecutable = false;
                 cplist.GenerateInMemory = true;
                 cplist.ReferencedAssemblies.Add("System.dll");
@@ -98,11 +91,11 @@ namespace System
                 cplist.ReferencedAssemblies.Add("System.Web.Services.dll");
                 cplist.ReferencedAssemblies.Add("System.Data.dll");
                 //编译代理类
-                CompilerResults cr = csc.CompileAssemblyFromDom(cplist, ccu);//【9】
+                CodeDom.Compiler.CompilerResults cr = csc.CompileAssemblyFromDom(cplist, ccu);//【9】
                 if (true == cr.Errors.HasErrors)
                 {
                     System.Text.StringBuilder sb = new StringBuilder();
-                    foreach (CompilerError ce in cr.Errors)
+                    foreach (CodeDom.Compiler.CompilerError ce in cr.Errors)
                     {
                         sb.Append(ce.ToString());
                         sb.Append(System.Environment.NewLine);
@@ -143,7 +136,7 @@ namespace System
         public static string GetMD5FromFile(string filePath)
         {
             FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            Security.Cryptography.MD5CryptoServiceProvider md5 = new Security.Cryptography.MD5CryptoServiceProvider();
             byte[] md5byte = md5.ComputeHash(fs);
             int i, j;
             string md5Str = string.Empty;
@@ -169,7 +162,7 @@ namespace System
         /// <summary> 获取字节流的md5值 </summary>
         public static string GetMD5FromFileStream(byte[] buffer)
         {
-            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            Security.Cryptography.MD5CryptoServiceProvider md5 = new Security.Cryptography.MD5CryptoServiceProvider();
             byte[] md5byte = md5.ComputeHash(buffer);
             int i, j;
             string md5Str = string.Empty;
@@ -236,7 +229,7 @@ namespace System
         /// <summary>获得指定时间 是一年中的第几周</summary> 
         public static int GetWeekIntOfYear(DateTime dateTime)
         {
-            return new GregorianCalendar().GetWeekOfYear(dateTime, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+            return new Globalization.GregorianCalendar().GetWeekOfYear(dateTime, Globalization.CalendarWeekRule.FirstDay, DayOfWeek.Monday);
         }
         #endregion
 
@@ -316,6 +309,44 @@ namespace System
                 }
             }
             return false;
+        }
+        #endregion
+
+        #region 获得强随机数，较耗内存
+        /// <summary> 获得强随机数，较耗内存 </summary>
+        public static int GetRandom()
+        {
+            byte[] randomBytes = new byte[8];
+            var rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
+            rng.GetBytes(randomBytes);
+            var result = BitConverter.ToInt32(randomBytes, 0);
+            result = System.Math.Abs(result);
+            return result;
+        }
+        #endregion
+
+        #region 获取测试DataTable
+        /// <summary> 获取测试DataTable </summary>
+        public static System.Data.DataTable GetTestDataTable(params string[] columns)
+        {
+            System.Data.DataTable dt = new System.Data.DataTable();
+            columns.ToList<string>().ForEach(a => dt.Columns.Add(a, typeof(string)));
+            return dt;
+        }
+        /// <summary> 获取测试DataTable </summary>
+        public static System.Data.DataTable GetTestDataTable(int rows, params string[] columns)
+        {
+            System.Data.DataTable dt = GetTestDataTable(columns);
+            for (int i = 0; i < rows; i++)
+            {
+                System.Data.DataRow row = dt.NewRow();
+                for (int j = 0; j < columns.Length; j++)
+                {
+                    row[columns[j]] = string.Format("{0}{1}", i, j);
+                }
+                dt.Rows.Add(row);
+            }
+            return dt;
         }
         #endregion
     }

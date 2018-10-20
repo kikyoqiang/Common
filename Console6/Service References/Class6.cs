@@ -10,7 +10,7 @@ namespace Console6
     {
         private static int _quantity = 0;
         private static int _itemPrice = 0;
-        static void Main()
+        static void Main1()
         {
             int a = 2;
             Console.WriteLine(1);
@@ -43,32 +43,6 @@ namespace Console6
                 return 0.95;
             else
                 return 0.98;
-        }
-    }
-
-
-
-    public sealed class SomeLibraryType
-    {
-        public static bool operator ==(SomeLibraryType t1, SomeLibraryType t2)
-        {
-            return true;
-        }
-        public static bool operator !=(SomeLibraryType t1, SomeLibraryType t2)
-        {
-            return false;
-        }
-        public UInt32 Abc()
-        {
-            return 0;
-        }
-        public void abc()
-        {
-
-        }
-        private UInt32 ABC()
-        {
-            return 0;
         }
     }
 }
