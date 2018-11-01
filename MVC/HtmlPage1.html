@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="scripts/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#ok").click(function () {
+                console.log("点击");
+                $.ajax({
+                    type: "Post",
+                    url: "http://192.168.199.151:10002/WebService.asmx/A01",
+                    dataType: "jsonp",  //数据格式设置为jsonp
+                    jsonp: "callback",  //Jquery生成验证参数的名称
+                    data: { a: "哈哈" },
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <button id="ok">点一下，不会怀孕</button>
+</body>
+</html>

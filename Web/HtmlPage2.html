@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="scripts/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#ok").click(function () {
+                console.log("点击");
+                $.ajax({
+                    type: "Post",
+                    url: "http://localhost:64817/WebService.asmx/A01",
+                    dataType: "json",
+                    data: { a: "哈哈" },
+                    success: function (data) {
+                        alert("成功");
+                        alert(data);
+                    },
+                    error: function (e) {
+                        alert(e.state);
+                        alert(e.readyState);
+                        alert(e.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <button id="ok">点一下，不会怀孕</button>
+</body>
+</html>

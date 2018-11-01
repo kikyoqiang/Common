@@ -52,7 +52,7 @@
     <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="Other\Category.cs" />
     <Compile Include="Helper\CacheHelper.cs" />
-    <Compile Include="Extension\ExtensionMethods.cs" />
+    <Compile Include="Extension\Extension.cs" />
     <Compile Include="Helper\ObjTo.cs" />
     <Compile Include="Helper\HttpHelper.cs" />
     <Compile Include="Helper\LogHelper.cs" />

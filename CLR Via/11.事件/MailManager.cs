@@ -32,4 +32,20 @@ namespace CLR_Via
         public string To { get { return m_to; } }
         public string Subject { get { return m_subject; } }
     }
+    public sealed class Fax
+    {
+        public Fax(MailManager mm)
+        {
+
+        }
+        private void FaxMsg(object sender, NewMailEventArgs e)
+        {
+            Console.WriteLine("FaxMsg mail message");
+            Console.WriteLine("From={0},To={1},Subject={2}", e.From, e.To, e.Subject);
+        }
+        public void UnRegister(MailManager mm)
+        {
+            mm.NewMail -= FaxMsg;
+        }
+    }
 }

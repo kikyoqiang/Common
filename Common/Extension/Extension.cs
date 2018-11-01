@@ -9,7 +9,7 @@ namespace System
     /// <summary>
     /// 用于扩展方法
     /// </summary>
-    public static partial class ExtensionMethods
+    public static partial class Extension
     {
         #region String扩展方法
         /// <summary>
