@@ -1,9 +1,0 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DealWebService.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="DealWebService_BYSY_New_HdrQueryDataService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://10.2.2.71:8084/hdr-edi/ws/hdrQueryDataWS</Value>
-    </Setting>
-  </Settings>
-</SettingsFile>
