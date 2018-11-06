@@ -7,11 +7,6 @@ namespace System
 {
     public class Utility
     {
-        #region 变量
-        /// <summary>种子日期（自动排班用）</summary> 
-        private static DateTime sourse = DateTime.Parse("2018-01-01 00:00:00");
-        #endregion
-
         #region 检测WebService是否可用
         /// <summary> 检测WebService是否可用 </summary> 
         public static bool IsWebServiceAvaiable(string url)
@@ -207,12 +202,12 @@ namespace System
         }
         #endregion
 
-        #region 获得目标日期 是单周 还是双周 根据种子日期
-        /// <summary>获得目标日期 是单周 还是双周 根据种子日期</summary> 
+        #region 获得目标日期 是单周 还是双周
+        /// <summary>获得目标日期 是单周 还是双周 </summary> 
         public static string GetWeekByDate(DateTime Target)
         {
             string result = string.Empty;
-            TimeSpan span = Target.Subtract(sourse);
+            TimeSpan span = Target.Subtract(DateTime.Parse("2018-01-01 00:00:00"));
             if (span.Days % 14 < 7)
             {
                 result = "单周";
@@ -365,5 +360,65 @@ namespace System
         }
         #endregion
 
+        #region 获取文件大小 GB MB KB Byte
+        /// <summary> 获取文件大小 GB MB KB Byte </summary>
+        public static string GetFileSize(long size)
+        {
+            string FileSize = string.Empty;
+            if (size > (1024 * 1024 * 1024))
+                FileSize = ((double)size / (1024 * 1024 * 1024)).ToString(".##") + " GB";
+            else if (size > (1024 * 1024))
+                FileSize = ((double)size / (1024 * 1024)).ToString(".##") + " MB";
+            else if (size > 1024)
+                FileSize = ((double)size / 1024).ToString(".##") + " KB";
+            else if (size == 0)
+                FileSize = "0 Byte";
+            else
+                FileSize = ((double)size / 1).ToString(".##") + " Byte";
+
+            return FileSize;
+        }
+        #endregion
+
+        #region 递归文件夹下 所有文件数量
+        /// <summary> 递归文件数量 </summary>
+        public static int GetDirectoryCount(string dirp, ref int UpfileCount)
+        {
+            DirectoryInfo mydir = new DirectoryInfo(dirp);
+            foreach (FileSystemInfo fsi in mydir.GetFileSystemInfos())
+            {
+                if (fsi is FileInfo)
+                {
+                    UpfileCount += 1;
+                }
+                else
+                {
+                    DirectoryInfo di = (DirectoryInfo)fsi;
+                    string new_dir = di.FullName;
+                    GetDirectoryCount(new_dir, ref UpfileCount);
+                }
+            }
+            return UpfileCount;
+        }
+        #endregion
+
+        #region 获取系统内存大小
+        /// <summary> 获取系统内存大小 </summary>
+        [System.Runtime.InteropServices.DllImport("kernel32")]
+        public static extern void GlobalMemoryStatus(ref Memory_Info meminfo);
+        /// <summary> 内存的信息结构 </summary>
+        [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+        public struct Memory_Info
+        {
+            public uint dwLength;
+            public uint dwMemoryLoad;
+            public uint dwTotalPhys;
+            public uint dwAvailPhys;
+            public uint dwTotalPageFile;
+            public uint dwAvailPageFile;
+            public uint dwTotalVirtual;
+            public uint dwAvailVirtual;
+        } 
+        #endregion
     }
 }

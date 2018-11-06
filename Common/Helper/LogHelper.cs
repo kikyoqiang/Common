@@ -157,35 +157,60 @@ namespace Common
 
         public void WriteError(string message)
         {
-            Log("Error", string.Format(" {0} ", message));
+            Log("Error", string.Format(" {0} 异常", message));
         }
 
         public void WriteError(string message, Exception excep)
         {
-            string exMsg = excep.Message;
-            string tempStr = " " + message + "   |  Exception:" + exMsg + "\r\n StackTrace:" + excep.StackTrace;
-            Log("Error", tempStr);
+            Log("Error", string.Format(" {0} 异常  |  Exception：{1} \r\n {2}", message, excep.Message, excep.StackTrace));
         }
 
         public void WriteInfo(string message)
         {
-            Log("Info", string.Concat(" ", message, " "));
+            Log("Info", string.Format("  {0}  ", message));
         }
 
         public void WriteInfo(string message, Exception excep)
         {
-            string exMsg = excep.Message;
-            string tempStr = " " + message + "  |  Exception:" + exMsg;
-            Log("Info", tempStr);
+            Log("Info", string.Format(" {0} 异常  |  Exception：{1} \r\n {2}", message, excep.Message, excep.StackTrace));
         }
 
-        public void WriteDebug(string message, bool LogThis = true)
+        public void WriteDebug(string message)
         {
-            if (LogThis)
-            {
-                //个别DebugLog可以由传入的参数控制
+            Log("Debug", message);
+        }
+
+        public void WriteDebug(string message, bool isLog)
+        {
+            if (isLog)
                 Log("Debug", message);
-            }
+        }
+    }
+    public class Log
+    {
+        public static void Error(string message)
+        {
+            LogHelper.Instance.WriteError(message);
+        }
+        public static void Error(string message, Exception ex)
+        {
+            LogHelper.Instance.WriteError(message, ex);
+        }
+        public static void Info(string message)
+        {
+            LogHelper.Instance.WriteInfo(message);
+        }
+        public static void Info(string message, Exception ex)
+        {
+            LogHelper.Instance.WriteInfo(message, ex);
+        }
+        public static void Debug(string message)
+        {
+            LogHelper.Instance.WriteDebug(message);
+        }
+        public static void Debug(string message, bool isLog)
+        {
+            LogHelper.Instance.WriteDebug(message, isLog);
         }
     }
 }
