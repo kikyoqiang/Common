@@ -150,7 +150,7 @@ namespace Common
             }
             catch (System.Exception ex)
             {
-                string str = string.Concat("LogError:", ex.Message);
+                string str = string.Concat("LogError:" , ex.Message);
                 Console.WriteLine(str);
             }
         }
@@ -158,6 +158,11 @@ namespace Common
         public void WriteError(string message)
         {
             Log("Error", string.Format(" {0} 异常", message));
+        }
+
+        public void WriteError(Exception ex)
+        {
+            Log("Error", string.Format(" \r\n {0}  ", ex.ToSafeString()));
         }
 
         public void WriteError(string message, Exception excep)
@@ -191,6 +196,10 @@ namespace Common
         public static void Error(string message)
         {
             LogHelper.Instance.WriteError(message);
+        }
+        public static void Error(Exception ex)
+        {
+            LogHelper.Instance.WriteError(ex);
         }
         public static void Error(string message, Exception ex)
         {
