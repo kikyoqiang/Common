@@ -503,26 +503,52 @@ namespace System
 
         #region 将时间转换为 yyyy-MM-dd 格式
 
-        /// <summary> 时间转换 失败返回1753-01-01</summary>
+        /// <summary> 时间转换 yyyy-MM-dd </summary>
         public static string ToDateStr(this DateTime dateTime)
         {
             return dateTime.ToString("yyyy-MM-dd");
         }
-        /// <summary> 时间转换 失败返回1753-01-01 </summary>
+
+        /// <summary> 时间转换 yyyy-MM-dd </summary>
         public static string ToDateStr(this string dateTimeStr)
         {
             return dateTimeStr.ToDateTime().ToDateStr();
         }
 
-        /// <summary> 时间转换 失败返回1753-01-01 00:00:00 </summary>
+        /// <summary> 时间转换 yyyy-MM-dd HH:mm:ss </summary>
         public static string ToDateStrHH(this DateTime dateTime)
         {
             return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
         }
-        /// <summary> 时间转换 失败返回1753-01-01 00:00:00 </summary>
+
+        /// <summary> 时间转换 yyyy-MM-dd HH:mm:ss </summary>
         public static string ToDateStrHH(this string dateTimeStr)
         {
             return dateTimeStr.ToDateTime().ToDateStrHH();
+        }
+
+        /// <summary> 时间转换  yyyy-MM-dd 00:00:00 </summary>
+        public static string ToDateStr00(this DateTime dateTime)
+        {
+            return dateTime.ToString("yyyy-MM-dd 00:00:00");
+        }
+
+        /// <summary> 时间转换  yyyy-MM-dd 23:59:59</summary>
+        public static string ToDateStr23(this DateTime dateTime)
+        {
+            return dateTime.ToString("yyyy-MM-dd 23:59:59");
+        }
+
+        /// <summary> 时间转换  yyyy-MM-dd 00:00:00.000 </summary>
+        public static string ToDateStr00_000(this DateTime dateTime)
+        {
+            return dateTime.ToString("yyyy-MM-dd 00:00:00.000");
+        }
+
+        /// <summary> 时间转换  yyyy-MM-dd 23:59:59.997 </summary>
+        public static string ToDateStr23_997(this DateTime dateTime)
+        {
+            return dateTime.ToString("yyyy-MM-dd 23:59:59.997");
         }
 
         /// <summary> 给时间加上00:00:00 </summary>
@@ -530,6 +556,7 @@ namespace System
         {
             return string.Format("{0} 00:00:00", dateStr);
         }
+
         /// <summary> 给时间加上23:59:59 </summary>
         public static string AddStr23(this string dateStr)
         {
@@ -541,13 +568,14 @@ namespace System
         {
             return string.Format("{0} 00:00:00.000", dateStr);
         }
+
         /// <summary> 给时间加上23:59:59.997 </summary>
         public static string AddStr23_997(this string dateStr)
         {
             return string.Format("{0} 23:59:59.997", dateStr);
         }
 
-        /// <summary> 日期转换 默认值1753-01-01 00:00:00 </summary>
+        /// <summary> 日期转换 1753-01-01 00:00:00 </summary>
         public static DateTime ToDateTime(this string dateTimeStr)
         {
             DateTime dateTime;
