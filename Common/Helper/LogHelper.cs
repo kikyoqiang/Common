@@ -150,7 +150,7 @@ namespace Common
             }
             catch (System.Exception ex)
             {
-                string str = string.Concat("LogError:" , ex.Message);
+                string str = string.Concat("LogError:", ex.Message);
                 Console.WriteLine(str);
             }
         }
@@ -158,6 +158,11 @@ namespace Common
         public void WriteError(string message)
         {
             Log("Error", string.Format(" {0} 异常", message));
+        }
+
+        public void WriteError(string format, params object[] args)
+        {
+            Log("Error", string.Format(format, args));
         }
 
         public void WriteError(Exception ex)
@@ -170,9 +175,15 @@ namespace Common
             Log("Error", string.Format(" {0} 异常  |  Exception：{1} \r\n {2}", message, excep.Message, excep.StackTrace));
         }
 
+
         public void WriteInfo(string message)
         {
             Log("Info", string.Format("  {0}  ", message));
+        }
+
+        public void WriteInfo(string format, params object[] args)
+        {
+            Log("Info", string.Format(format, args));
         }
 
         public void WriteInfo(string message, Exception excep)
@@ -180,9 +191,15 @@ namespace Common
             Log("Info", string.Format(" {0} 异常  |  Exception：{1} \r\n {2}", message, excep.Message, excep.StackTrace));
         }
 
+
         public void WriteDebug(string message)
         {
             Log("Debug", message);
+        }
+
+        public void WriteDebug(string format, params object[] args)
+        {
+            Log("Debug", string.Format(format, args));
         }
 
         public void WriteDebug(string message, bool isLog)
