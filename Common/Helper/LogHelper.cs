@@ -162,7 +162,7 @@ namespace Common
 
         public void WriteError(Exception ex)
         {
-            Log("Error", string.Format(" \r\n {0}  ", ex.ToSafeString()));
+            Log("Error", string.Format(" \r\n {0}  ", ex.ToSafeStr()));
         }
 
         public void WriteError(string message, Exception excep)

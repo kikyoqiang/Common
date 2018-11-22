@@ -188,7 +188,7 @@ namespace System
         }
 
         /// <summary> 转换为安全字符串 </summary> 
-        public static string ToSafeString(this object o)
+        public static string ToSafeStr(this object o)
         {
             string value = "";
             if (o != null && o != DBNull.Value)
@@ -296,7 +296,7 @@ namespace System
         /// <returns></returns>
         public static string GetStringValue(this DataRow row, string pColumnName)
         {
-            return GetValue(row, pColumnName).ToSafeString();
+            return GetValue(row, pColumnName).ToSafeStr();
         }
 
         /// <summary>
@@ -351,7 +351,7 @@ namespace System
         /// <returns></returns>
         public static string GetStringValue(this DataTable data, int rowIndex, string pColumnName)
         {
-            return GetValue(data, rowIndex, pColumnName).ToSafeString();
+            return GetValue(data, rowIndex, pColumnName).ToSafeStr();
         }
 
         /// <summary>
