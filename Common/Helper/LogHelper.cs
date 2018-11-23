@@ -214,6 +214,10 @@ namespace Common
         {
             LogHelper.Instance.WriteError(message);
         }
+        public static void Error(string format, params object[] args)
+        {
+            LogHelper.Instance.WriteError(format, args);
+        }
         public static void Error(Exception ex)
         {
             LogHelper.Instance.WriteError(ex);
@@ -222,17 +226,27 @@ namespace Common
         {
             LogHelper.Instance.WriteError(message, ex);
         }
+
         public static void Info(string message)
         {
             LogHelper.Instance.WriteInfo(message);
+        }
+        public static void Info(string format, params object[] args)
+        {
+            LogHelper.Instance.WriteInfo(format, args);
         }
         public static void Info(string message, Exception ex)
         {
             LogHelper.Instance.WriteInfo(message, ex);
         }
+
         public static void Debug(string message)
         {
             LogHelper.Instance.WriteDebug(message);
+        }
+        public static void Debug(string format, params object[] args)
+        {
+            LogHelper.Instance.WriteDebug(format, args);
         }
         public static void Debug(string message, bool isLog)
         {
