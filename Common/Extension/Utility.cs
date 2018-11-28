@@ -418,6 +418,14 @@ namespace System
             public uint dwAvailPageFile;
             public uint dwTotalVirtual;
             public uint dwAvailVirtual;
+        }
+        #endregion
+
+        #region KeyPress是否是全角
+        /// <summary> KeyPress是否是全角 </summary>
+        public static bool IsFullAngle(System.Windows.Forms.KeyPressEventArgs e)
+        {
+            return ((e.KeyChar >= 65281 && e.KeyChar <= 65374) || e.KeyChar == 12288);
         } 
         #endregion
     }
