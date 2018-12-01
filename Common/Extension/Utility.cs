@@ -5,7 +5,7 @@ using System.Text;
 
 namespace System
 {
-    public class Utility
+    public sealed class Utility
     {
         #region 检测WebService是否可用
         /// <summary> 检测WebService是否可用 </summary> 
