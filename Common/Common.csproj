@@ -55,6 +55,7 @@
     <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="Helper\OracleHelper.cs" />
     <Compile Include="Helper\OleOracleHelper.cs" />
+    <Compile Include="Helper\WebServiceClientHelper.cs" />
     <Compile Include="Other\Category.cs" />
     <Compile Include="Helper\CacheHelper.cs" />
     <Compile Include="Extension\Extension.cs" />

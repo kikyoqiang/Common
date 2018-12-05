@@ -322,16 +322,16 @@ namespace System
 
         #region 获取测试DataTable
         /// <summary> 获取测试DataTable </summary>
-        public static System.Data.DataTable GetTestDataTable(params string[] columns)
+        public static System.Data.DataTable GetTableTest(params string[] columns)
         {
             System.Data.DataTable dt = new System.Data.DataTable();
             columns.ToList<string>().ForEach(a => dt.Columns.Add(a, typeof(string)));
             return dt;
         }
         /// <summary> 获取测试DataTable </summary>
-        public static System.Data.DataTable GetTestDataTable(int rows, params string[] columns)
+        public static System.Data.DataTable GetTableTest(int rows, params string[] columns)
         {
-            System.Data.DataTable dt = GetTestDataTable(columns);
+            System.Data.DataTable dt = GetTableTest(columns);
             for (int i = 0; i < rows; i++)
             {
                 System.Data.DataRow row = dt.NewRow();
@@ -426,7 +426,15 @@ namespace System
         public static bool IsFullAngle(System.Windows.Forms.KeyPressEventArgs e)
         {
             return ((e.KeyChar >= 65281 && e.KeyChar <= 65374) || e.KeyChar == 12288);
-        } 
+        }
+        #endregion
+
+        #region 是否存在任何一个为空
+        /// <summary> 是否存在任何一个为空 </summary>
+        public static bool IsAnyNullOrEmpty(params string[] strings)
+        {
+            return strings == null || strings.Any(a => a.IsNullOrEmpty());
+        }
         #endregion
     }
 }
