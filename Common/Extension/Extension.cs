@@ -12,30 +12,17 @@ namespace System
     public static partial class Extension
     {
         #region String扩展方法
-        /// <summary>
-        /// 判断string是否为空
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
+
         public static bool IsNullOrEmpty(this string s)
         {
-            return s == null || s.Trim().Length == 0;
+            return s == null || s.Length == 0 || s.Trim().Length == 0;
         }
 
-        #region 判断string不为空
-        /// <summary> 判断string不为空 </summary>
         public static bool IsNotEmpty(this string s)
         {
             return s.IsNullOrEmpty() == false;
         }
-        #endregion
 
-        /// <summary>
-        /// 将字符串转换为Int数据类型并返回，如果转换不成功，则返回指定的替代值。
-        /// </summary>
-        /// <param name="text">要执行转换的字符串</param>
-        /// <param name="replaceNumber">替代值</param>
-        /// <returns>转换后的值或替代值</returns>
         public static int ToInt(this string text, int replaceNumber = 0)
         {
             int i = 0;
@@ -52,32 +39,42 @@ namespace System
             return l;
         }
 
-        /// <summary>
-        /// 将字符串转换为Double数据类型并返回，如果转换不成功，则返回指定的替代值。
-        /// </summary>
-        /// <param name="text">要执行转换的字符串</param>
-        /// <param name="replaceNumber">替代值</param>
-        /// <returns>转换后的值或替代值</returns>
-        public static Double ToDouble(this string text, Double replaceNumber = 0)
+        public static double ToDouble(this string text, double replaceNumber = 0)
         {
-            Double i = 0;
-            if (!Double.TryParse(text, out i))
+            double i = 0;
+            if (!double.TryParse(text, out i))
                 i = replaceNumber;
             return i;
         }
 
-        /// <summary>
-        /// 将字符串转换为Decimal数据类型并返回，如果转换不成功，则返回指定的替代值。
-        /// </summary>
-        /// <param name="text">要执行转换的字符串</param>
-        /// <param name="replaceNumber">替代值</param>
-        /// <returns>转换后的值或替代值</returns>
-        public static Decimal ToDecimal(this string text, Decimal replaceNumber = 0)
+        public static decimal ToDecimal(this string text, decimal replaceNumber = 0)
         {
-            Decimal i = 0;
-            if (!Decimal.TryParse(text, out i))
+            decimal i = 0;
+            if (!decimal.TryParse(text, out i))
                 i = replaceNumber;
             return i;
+        }
+
+        public static float ToFloat(this string text, float replaceNumber = 0)
+        {
+            float f = 0;
+            if (!float.TryParse(text, out f))
+                f = replaceNumber;
+            return f;
+        }
+
+        public static bool ToBoolean(this string s)
+        {
+            bool result = false;
+
+            if (s == "true" || s == "True" || s == "1" || s == "是" || s == "TRUE")
+                result = true;
+            else if (s == "false" || s == "False" || s == "0" || s == "否" || s == "FALSE")
+                result = false;
+            else
+                bool.TryParse(s, out result);
+
+            return result;
         }
 
         /// <summary>
@@ -95,169 +92,24 @@ namespace System
             return result;
         }
 
-        /// <summary>
-        /// 将数字转换为字符串，保留两位小数。形如：12.34
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static string ToDecimailString(this decimal value)
+        /// <summary> 将数字转换为字符串，保留两位小数。形如：12.34 </summary>
+        public static string ToDecimailStr(this decimal value)
         {
             return value.ToString("0.00");
         }
-        #endregion
 
-        #region Object扩展方法
-        /// <summary>
-        /// 将Object转换为Int
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="replaceNumber">指定的替代值</param>
-        /// <returns></returns>
-        public static int ToInt(this object text, int replaceNumber = 0)
-        {
-            int i = 0;
-            if (text != null)
-                if (!int.TryParse(text.ToString(), out i))
-                    i = replaceNumber;
-            return i;
-        }
-        /// <summary>
-        /// 将Object转换为long
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="replaceNumber">指定的替代值</param>
-        /// <returns></returns>
-        public static long ToLong(this object text, long replaceNumber = 0)
-        {
-            long l = 0;
-            if (text != null)
-                if (!long.TryParse(text.ToString(), out l))
-                    l = replaceNumber;
-            return l;
-        }
-        /// <summary>
-        /// 将Object转换为double
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="replaceNumber">指定的替代值</param>
-        /// <returns></returns>
-        public static double ToDouble(this object text, double replaceNumber = 0)
-        {
-            double d = 0;
-            if (text != null)
-                if (!double.TryParse(text.ToString(), out d))
-                    d = replaceNumber;
-            return d;
-        }
-        /// <summary>
-        /// 将Object转换为decimal
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="replaceNumber">指定的替代值</param>
-        /// <returns></returns>
-        public static decimal ToDecimal(this object text, decimal replaceNumber = 0)
-        {
-            decimal d = 0;
-            if (text != null)
-                if (!decimal.TryParse(text.ToString(), out d))
-                    d = replaceNumber;
-            return d;
-        }
-
-        /// <summary>
-        /// 判断object是否为null
-        /// </summary>
-        public static bool IsNull(this object text)
-        {
-            return text == null;
-        }
-        #endregion
-
-        #region Extension
-        /// <summary> 根据生日取得年龄 </summary>
-        public static string GetAgeByBirthDate(this DateTime BirthDate)
-        {
-            DateTime DateTimeNow = DateTime.Now;
-
-            int age = DateTimeNow.Year - BirthDate.Year;
-
-            if (BirthDate > DateTimeNow.AddYears(-age))
-                age--;
-
-            return age.ToString();
-        }
-
-        /// <summary> 转换为安全字符串 </summary> 
-        public static string ToSafeStr(this object o)
-        {
-            string value = "";
-            if (o != null && o != DBNull.Value)
-                value = o.ToString();
-
-            return value;
-        }
-
-        public static string ToSafeString(this DateTime d, string format)
-        {
-            if (d == null) return "";
-            return d.ToString(format);
-        }
-
-        public static decimal ToDecimal(this string s)
-        {
-            decimal f = 0;
-
-            if (s.Trim().Length > 0)
-                decimal.TryParse(s, out f);
-            return f;
-        }
-
-        public static float ToFloat(this string s)
-        {
-            float f = 0;
-
-            if (s.Trim().Length > 0)
-                float.TryParse(s, out f);
-            return f;
-        }
-
-        public static int ToInt(this string s)
-        {
-            int f = 0;
-
-            if (s != null)
-            {
-                if (s.Trim().Length > 0)
-                    int.TryParse(s, out f);
-            }
-
-            return f;
-        }
-
-        public static bool ToBoolean(this string s)
-        {
-            bool result = false;
-
-            if (s == "true" || s == "True" || s == "1" || s == "是")
-                result = true;
-            else if (s == "false" || s == "False" || s == "0" || s == "否")
-                result = false;
-            else
-                bool.TryParse(s, out result);
-
-            return result;
-        }
-
-        /// <summary> 补齐小数位 </summary> 
+        /// <summary> 补齐几位小数 </summary> 
         public static string PadDigit(this string s, int digit)
         {
             string v = "0";
             string digitStr = ".0".PadRight(digit + 1, '0');
-            if (s.Length == 0) return v + digitStr;
+            if (s.Length == 0)
+                return v + digitStr;
 
             string[] strs = s.Split('.');
 
-            if (strs.Length == 1) return strs[0] + digitStr;
+            if (strs.Length == 1)
+                return strs[0] + digitStr;
 
             if (strs.Length == 2)
             {
@@ -286,8 +138,72 @@ namespace System
 
             return s[pIndex];
         }
+
         #endregion
 
+        #region Object扩展方法
+
+        /// <summary> 转换为安全字符串 </summary> 
+        public static string ToSafeStr(this object o)
+        {
+            string value = "";
+            if (o != null && o != DBNull.Value)
+                value = o.ToString();
+            return value;
+        }
+
+        public static int ToInt(this object text, int replaceNumber = 0)
+        {
+            int i = 0;
+            if (text != null)
+                if (!int.TryParse(text.ToString(), out i))
+                    i = replaceNumber;
+            return i;
+        }
+
+        public static long ToLong(this object text, long replaceNumber = 0)
+        {
+            long l = 0;
+            if (text != null)
+                if (!long.TryParse(text.ToString(), out l))
+                    l = replaceNumber;
+            return l;
+        }
+
+        public static double ToDouble(this object text, double replaceNumber = 0)
+        {
+            double d = 0;
+            if (text != null)
+                if (!double.TryParse(text.ToString(), out d))
+                    d = replaceNumber;
+            return d;
+        }
+
+        public static decimal ToDecimal(this object text, decimal replaceNumber = 0)
+        {
+            decimal d = 0;
+            if (text != null)
+                if (!decimal.TryParse(text.ToString(), out d))
+                    d = replaceNumber;
+            return d;
+        }
+
+        public static float ToFloat(this object text, float replaceNumber = 0)
+        {
+            float f = 0;
+            if (text != null)
+                if (!float.TryParse(text.ToString(), out f))
+                    f = replaceNumber;
+            return f;
+        }
+
+        public static bool IsNull(this object text)
+        {
+            return text == null;
+        }
+
+        #endregion
+        
         #region DataRow Extension
         /// <summary>
         /// 获取字符串
@@ -326,11 +242,8 @@ namespace System
         /// <returns></returns>
         public static bool GetBooleanValue(this DataRow row, string pColumnName)
         {
-            string v = GetStringValue(row, pColumnName).ToLower();
-
-            if (v == "1" || v == "true") return true;
-
-            return false;
+            string v = GetStringValue(row, pColumnName);
+            return v.ToBoolean();
         }
 
         public static object GetValue(this DataRow row, string pColumnName)
@@ -341,6 +254,7 @@ namespace System
 
             return row[pColumnName];
         }
+
         #endregion
 
         #region DataTable Extension
@@ -382,10 +296,7 @@ namespace System
         public static bool GetBooleanValue(this DataTable data, int rowIndex, string pColumnName)
         {
             string v = GetStringValue(data, rowIndex, pColumnName).ToLower();
-
-            if (v == "1" || v == "true" || v == "True") return true;
-
-            return false;
+            return v.ToBoolean();
         }
 
         public static decimal GetDecimalValue(this DataTable data, int rowIndex, string pColumnName)
@@ -549,30 +460,6 @@ namespace System
         public static string ToDateStr23_997(this DateTime dateTime)
         {
             return dateTime.ToString("yyyy-MM-dd 23:59:59.997");
-        }
-
-        /// <summary> 给时间加上00:00:00 </summary>
-        public static string AddStr00(this string dateStr)
-        {
-            return string.Format("{0} 00:00:00", dateStr);
-        }
-
-        /// <summary> 给时间加上23:59:59 </summary>
-        public static string AddStr23(this string dateStr)
-        {
-            return string.Format("{0} 23:59:59", dateStr);
-        }
-
-        /// <summary> 给时间加上00:00:00.000 </summary>
-        public static string AddStr00_000(this string dateStr)
-        {
-            return string.Format("{0} 00:00:00.000", dateStr);
-        }
-
-        /// <summary> 给时间加上23:59:59.997 </summary>
-        public static string AddStr23_997(this string dateStr)
-        {
-            return string.Format("{0} 23:59:59.997", dateStr);
         }
 
         /// <summary> 日期转换 1753-01-01 00:00:00 </summary>
