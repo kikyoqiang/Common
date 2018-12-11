@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console6", "Console6\Consol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestForm", "TestForm\TestForm.csproj", "{11ED98BE-AACA-4EBE-A02D-34A04DA77278}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common4", "Common4\Common4.csproj", "{A65E5BEE-8DD6-4238-BAAF-30FC2EADAD1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{11ED98BE-AACA-4EBE-A02D-34A04DA77278}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11ED98BE-AACA-4EBE-A02D-34A04DA77278}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11ED98BE-AACA-4EBE-A02D-34A04DA77278}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A65E5BEE-8DD6-4238-BAAF-30FC2EADAD1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A65E5BEE-8DD6-4238-BAAF-30FC2EADAD1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A65E5BEE-8DD6-4238-BAAF-30FC2EADAD1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A65E5BEE-8DD6-4238-BAAF-30FC2EADAD1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
