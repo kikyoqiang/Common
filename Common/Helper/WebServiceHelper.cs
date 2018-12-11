@@ -31,9 +31,33 @@ namespace Common
         #endregion
 
         /// <summary>
+        /// Post方式请求WebService
+        /// </summary>
+        public static string PostJosn(string URL, string MethodName, Hashtable Pars)
+        {
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(URL + "/" + MethodName);
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            SetWebRequest(request);
+            byte[] data = EncodePars(Pars);
+            WriteRequestData(request, data);
+            HttpWebResponse response = null;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException ex)
+            {
+                var e = ex.Response;
+                throw;
+            }
+            return ReadJsonResponse(response);
+        }
+
+        /// <summary>
         /// 需要WebService支持Post调用
         /// </summary>
-        public static XmlDocument QueryPostWebService(String URL, String MethodName, Hashtable Pars)
+        public static XmlDocument QueryPostWebService(string URL, string MethodName, Hashtable Pars)
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(URL + "/" + MethodName);
             request.Method = "POST";
@@ -45,23 +69,9 @@ namespace Common
         }
 
         /// <summary>
-        /// 需要WebService支持Post调用
-        /// </summary>
-        public static string QueryPostWebServiceJosn(String URL, String MethodName, Hashtable Pars)
-        {
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(URL + "/" + MethodName);
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
-            SetWebRequest(request);
-            byte[] data = EncodePars(Pars);
-            WriteRequestData(request, data);
-            return ReadJsonResponse(request.GetResponse());
-        }
-
-        /// <summary>
         /// 需要WebService支持Get调用
         /// </summary>
-        public static XmlDocument QueryGetWebService(String URL, String MethodName, Hashtable Pars)
+        public static XmlDocument QueryGetWebService(string URL, string MethodName, Hashtable Pars)
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(URL + "/" + MethodName + "?" + ParsToString(Pars));
             request.Method = "GET";
@@ -71,9 +81,9 @@ namespace Common
         }
 
         /// <summary>
-        /// 通用WebService调用(Soap),参数Pars为String类型的参数名、参数值
+        /// 通用WebService调用(Soap),参数Pars为string类型的参数名、参数值
         /// </summary>
-        public static XmlDocument QuerySoapWebService(String URL, String MethodName, Hashtable Pars)
+        public static XmlDocument QuerySoapWebService(string URL, string MethodName, Hashtable Pars)
         {
             if (_xmlNamespaces.ContainsKey(URL))
             {
@@ -85,7 +95,7 @@ namespace Common
             }
         }
 
-        private static XmlDocument QuerySoapWebService(String URL, String MethodName, Hashtable Pars, string XmlNs)
+        private static XmlDocument QuerySoapWebService(string URL, string MethodName, Hashtable Pars, string XmlNs)
         {
             _xmlNamespaces[URL] = XmlNs;//加入缓存，提高效率
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(URL);
@@ -100,12 +110,12 @@ namespace Common
 
             XmlNamespaceManager mgr = new XmlNamespaceManager(doc.NameTable);
             mgr.AddNamespace("soap", "http://schemas.xmlsoap.org/soap/envelope/");
-            String RetXml = doc.SelectSingleNode("//soap:Body/*/*", mgr).InnerXml;
+            string RetXml = doc.SelectSingleNode("//soap:Body/*/*", mgr).InnerXml;
             doc2.LoadXml("<root>" + RetXml + "</root>");
             AddDelaration(doc2);
             return doc2;
         }
-        private static string GetNamespace(String URL)
+        private static string GetNamespace(string URL)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL + "?WSDL");
             SetWebRequest(request);
@@ -117,7 +127,7 @@ namespace Common
             return doc.SelectSingleNode("//@targetNamespace").Value;
         }
 
-        private static byte[] EncodeParsToSoap(Hashtable Pars, String XmlNs, String MethodName)
+        private static byte[] EncodeParsToSoap(Hashtable Pars, string XmlNs, string MethodName)
         {
             XmlDocument doc = new XmlDocument();
             doc.LoadXml("<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"></soap:Envelope>");
@@ -162,7 +172,7 @@ namespace Common
         private static void SetWebRequest(HttpWebRequest request)
         {
             request.Credentials = CredentialCache.DefaultCredentials;
-            request.Timeout = 10000;
+            request.Timeout = 2000;
         }
 
         private static void WriteRequestData(HttpWebRequest request, byte[] data)
@@ -178,15 +188,16 @@ namespace Common
             return Encoding.UTF8.GetBytes(ParsToString(Pars));
         }
 
-        private static String ParsToString(Hashtable Pars)
+        private static string ParsToString(Hashtable Pars)
         {
             StringBuilder sb = new StringBuilder();
+            int i = 0;
             foreach (string k in Pars.Keys)
             {
-                if (sb.Length > 0)
-                {
+                if (i > 0)
                     sb.Append("&");
-                }
+                sb.AppendFormat("{0}={1}", k, Pars[k]);
+                i++;
                 //sb.Append(HttpUtility.UrlEncode(k) + "=" + HttpUtility.UrlEncode(Pars[k].ToString()));
             }
             return sb.ToString();
@@ -195,7 +206,7 @@ namespace Common
         private static XmlDocument ReadXmlResponse(WebResponse response)
         {
             StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
-            String retXml = sr.ReadToEnd();
+            string retXml = sr.ReadToEnd();
             sr.Close();
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(retXml);
@@ -205,7 +216,7 @@ namespace Common
         private static string ReadJsonResponse(WebResponse response)
         {
             StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
-            String retXml = sr.ReadToEnd();
+            string retXml = sr.ReadToEnd();
             return retXml;
         }
 
