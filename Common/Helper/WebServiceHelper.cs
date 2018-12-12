@@ -31,9 +31,9 @@ namespace Common
         #endregion
 
         /// <summary>
-        /// Post方式请求WebService
+        /// Post 请求WebService
         /// </summary>
-        public static string PostJosn(string URL, string MethodName, Hashtable Pars)
+        public static string PostString(string URL, string MethodName, Hashtable Pars)
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(URL + "/" + MethodName);
             request.Method = "POST";
@@ -48,36 +48,64 @@ namespace Common
             }
             catch (WebException ex)
             {
-                var e = ex.Response;
-                throw;
+                //response = (HttpWebResponse)ex.Response;
+                var message = ReadStringResponse(ex.Response);
+                throw new Exception(message);
             }
-            return ReadJsonResponse(response);
+            return ReadStringResponse(response);
         }
 
         /// <summary>
-        /// 需要WebService支持Post调用
+        /// Post 请求WebService
         /// </summary>
-        public static XmlDocument QueryPostWebService(string URL, string MethodName, Hashtable Pars)
+        public static string PostString(string URL, string postString)
         {
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(URL + "/" + MethodName);
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(URL);
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
             SetWebRequest(request);
-            byte[] data = EncodePars(Pars);
+            byte[] data = Encoding.UTF8.GetBytes(postString);
             WriteRequestData(request, data);
-            return ReadXmlResponse(request.GetResponse());
+            HttpWebResponse response = null;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException ex)
+            {
+                //response = (HttpWebResponse)ex.Response;
+                var message = ReadStringResponse(ex.Response);
+                throw new Exception(message);
+            }
+            return ReadStringResponse(response);
         }
 
         /// <summary>
-        /// 需要WebService支持Get调用
+        /// Get 请求WebService
         /// </summary>
-        public static XmlDocument QueryGetWebService(string URL, string MethodName, Hashtable Pars)
+        public static string GetString(string URL, string MethodName, Hashtable Pars = null)
         {
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(URL + "/" + MethodName + "?" + ParsToString(Pars));
-            request.Method = "GET";
+            if (Pars != null && Pars.Keys.Count > 0)
+                URL = string.Format("{0}/{1}?{2}", URL, MethodName, ParsToString(Pars));
+            else
+                URL = string.Format("{0}/{1}", URL, MethodName);
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(URL);
+            request.Method = "Get";
             request.ContentType = "application/x-www-form-urlencoded";
             SetWebRequest(request);
-            return ReadXmlResponse(request.GetResponse());
+
+            HttpWebResponse response = null;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException ex)
+            {
+                //response = (HttpWebResponse)ex.Response;
+                var message = ReadStringResponse(ex.Response);
+                throw new Exception(message);
+            }
+            return ReadStringResponse(response);
         }
 
         /// <summary>
@@ -172,7 +200,7 @@ namespace Common
         private static void SetWebRequest(HttpWebRequest request)
         {
             request.Credentials = CredentialCache.DefaultCredentials;
-            request.Timeout = 2000;
+            request.Timeout = 10000;
         }
 
         private static void WriteRequestData(HttpWebRequest request, byte[] data)
@@ -183,41 +211,52 @@ namespace Common
             writer.Close();
         }
 
-        private static byte[] EncodePars(Hashtable Pars)
+        private static byte[] EncodePars(Hashtable Pars, Encoding encoding = null)
         {
-            return Encoding.UTF8.GetBytes(ParsToString(Pars));
+            encoding = encoding ?? Encoding.UTF8;
+            return encoding.GetBytes(ParsToString(Pars));
         }
 
         private static string ParsToString(Hashtable Pars)
         {
             StringBuilder sb = new StringBuilder();
             int i = 0;
-            foreach (string k in Pars.Keys)
+            foreach (var key in Pars.Keys)
             {
                 if (i > 0)
                     sb.Append("&");
-                sb.AppendFormat("{0}={1}", k, Pars[k]);
+                sb.AppendFormat("{0}={1}", key, Pars[key]);
                 i++;
                 //sb.Append(HttpUtility.UrlEncode(k) + "=" + HttpUtility.UrlEncode(Pars[k].ToString()));
             }
             return sb.ToString();
         }
 
-        private static XmlDocument ReadXmlResponse(WebResponse response)
+        private static string ReadStringResponse(WebResponse response, Encoding encoding = null)
         {
-            StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
-            string retXml = sr.ReadToEnd();
-            sr.Close();
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(retXml);
-            return doc;
+            encoding = encoding ?? Encoding.UTF8;
+            using (StreamReader sr = new StreamReader(response.GetResponseStream(), encoding))
+            {
+                return sr.ReadToEnd();
+            }
         }
 
-        private static string ReadJsonResponse(WebResponse response)
+        private static XmlDocument ReadXmlResponse(WebResponse response)
         {
-            StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
-            string retXml = sr.ReadToEnd();
-            return retXml;
+            TextReader reader = null;
+            try
+            {
+                reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+                string retXml = reader.ReadToEnd();
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(retXml);
+                return doc;
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+            }
         }
 
         private static void AddDelaration(XmlDocument doc)
