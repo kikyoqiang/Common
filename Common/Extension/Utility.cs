@@ -176,6 +176,8 @@ namespace System
         }
         #endregion
 
+        #region Date 日期 
+
         #region 根据时间 获取周几Int
         /// <summary> 根据时间 获取周几Int </summary>
         public static int GetWeekInt(string dateTimeStr)
@@ -234,6 +236,8 @@ namespace System
         {
             return GetWeekIntOfYear(dateTime) % 2 == 1 ? "单周" : "双周";
         }
+        #endregion 
+
         #endregion
 
         #region 计算年龄
@@ -435,6 +439,106 @@ namespace System
         {
             return strings == null || strings.Any(a => a.IsNullOrEmpty());
         }
+        #endregion
+
+        #region   Stream  流
+
+        /// <summary> Stream 转换为 byte[] </summary>
+        public static byte[] StreamToBytes(Stream stream)
+        {
+            byte[] bytes = new byte[stream.Length];
+            stream.Read(bytes, 0, bytes.Length);
+            stream.Seek(0, SeekOrigin.Begin);
+            return bytes;
+        }
+
+        #endregion
+
+        #region   byte[] 字节数组
+
+        #region byte[] 转换为 Base64
+        /// <summary> byte[] 转换为 Base64 </summary>
+        public static string BytesToToBase64(byte[] bytes)
+        {
+            return Convert.ToBase64String(bytes).Replace("+", "%2B");
+        } 
+        #endregion
+
+        #region byte[] Zip压缩 为 Base64
+        /// <summary> byte[] Zip压缩 为 Base64 </summary>
+        public static string ZipBase64(byte[] bytes)
+        {
+            //压缩
+            string compressStr = "";
+            try
+            {
+                MemoryStream ms = new MemoryStream();
+                System.IO.Compression.GZipStream zip = new System.IO.Compression.GZipStream(ms, System.IO.Compression.CompressionMode.Compress, true);
+                zip.Write(bytes, 0, bytes.Length);
+                zip.Close();
+                byte[] buffer = new byte[ms.Length];
+                ms.Position = 0;
+                ms.Read(buffer, 0, buffer.Length);
+                ms.Close();
+                compressStr = Convert.ToBase64String(buffer);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            //base64编码
+            byte[] encData_byte = new byte[compressStr.Length];
+            encData_byte = System.Text.Encoding.UTF8.GetBytes(compressStr);
+            string xml = Convert.ToBase64String(encData_byte);
+            return xml;
+        }
+        #endregion
+
+        #region Base64 Zip解压 为 byte[]
+        /// <summary> Base64 Zip解压 为 byte[] </summary>
+        public static byte[] UnzipBase64(string xml)
+        {
+            //base64解码
+            System.Text.UTF8Encoding encoder = new System.Text.UTF8Encoding();
+            System.Text.Decoder utf8Decode = encoder.GetDecoder();
+            byte[] todecode_byte = Convert.FromBase64String(xml);
+            int charCount = utf8Decode.GetCharCount(todecode_byte, 0, todecode_byte.Length);
+            char[] decoded_char = new char[charCount];
+            utf8Decode.GetChars(todecode_byte, 0, todecode_byte.Length, decoded_char, 0);
+            string decoded = new String(decoded_char);
+            //解压缩
+            byte[] compressBeforeByte = Convert.FromBase64String(decoded);
+            byte[] buffer = new byte[0x1000];
+            try
+            {
+                MemoryStream ms = new MemoryStream(compressBeforeByte);
+                IO.Compression.GZipStream zip = new IO.Compression.GZipStream(ms, IO.Compression.CompressionMode.Decompress, true);
+                MemoryStream msreader = new MemoryStream();
+                while (true)
+                {
+                    int reader = zip.Read(buffer, 0, buffer.Length);
+                    if (reader <= 0)
+                    {
+                        break;
+                    }
+                    msreader.Write(buffer, 0, reader);
+                }
+                zip.Close();
+                ms.Close();
+                msreader.Position = 0;
+                buffer = msreader.ToArray();
+                msreader.Close();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            byte[] compressAfterByte = buffer;
+            return compressAfterByte;
+        } 
+        #endregion
+
         #endregion
     }
 }
