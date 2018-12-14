@@ -143,6 +143,12 @@ namespace System
 
         #region Object扩展方法
 
+        /// <summary> 判断 集合 是否为空 </summary>
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> list)
+        {
+            return list == null || list.Count() <= 0;
+        }
+
         /// <summary> 转换为安全字符串 </summary> 
         public static string ToSafeStr(this object o)
         {
