@@ -9,6 +9,7 @@ using System.Text;
 
 namespace Common
 {
+    /// <summary> OleOracle 需要客户端 </summary>
     public sealed class OleOracleHelper
     {
         private static OleOracleHelper dataManageOle;
@@ -50,14 +51,12 @@ namespace Common
         #endregion
 
         #region 数据库连接字符串
-        ///<summary>
-        /// 数据库名称，数据库用户名, 密码
-        /// </summary>
-        public void Init(string dbName_, string dbUser_, string dbPassword_)
+        /// <summary> 服务名 用户名 密码 </summary>
+        public void Init(string dbServer, string dbUser, string dbPassword)
         {
-            this.DbName = dbName_;
-            this.DbUser = dbUser_;
-            this.DbPassword = dbPassword_;
+            this.DbServer = dbServer;
+            this.DbUser = dbUser;
+            this.DbPassword = dbPassword;
         }
 
         private string GetOracleConnectString()
