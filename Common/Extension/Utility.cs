@@ -265,7 +265,7 @@ namespace System
             if (now.Month < birthDay.Month || (now.Month == birthDay.Month && now.Day < birthDay.Day))
                 age--;
             return age < 0 ? 0 : age;
-        } 
+        }
         #endregion
 
         #endregion
@@ -453,10 +453,10 @@ namespace System
             }
             return dt;
         }
-        #endregion 
+        #endregion
 
         #endregion
-        
+
         #region 系统 相关
 
         /// <summary> 获取系统内存大小 </summary>
@@ -475,6 +475,25 @@ namespace System
             public uint dwTotalVirtual;
             public uint dwAvailVirtual;
         }
+
+        #region 关闭进程
+        /// <summary> 关闭进程 </summary>
+        public static void StopProcess(string processName)
+        {
+            var processAll = Diagnostics.Process.GetProcesses();
+            var processes = processAll.Where(e => e.ProcessName.Contains(processName) && !e.ProcessName.Contains("vshost"));
+            foreach (var process in processes)
+            {
+                process.CloseMainWindow();
+
+                if (!process.HasExited)
+                    process.Kill();
+
+                if (process != null)
+                    process.Close();
+            }
+        }
+        #endregion
 
         #endregion
 
@@ -521,7 +540,7 @@ namespace System
         #endregion
 
         #endregion
-        
+
         #region 其它 相关
 
         #region 获得强随机数，较耗内存
