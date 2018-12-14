@@ -9,6 +9,7 @@ using System.Text;
 namespace Common
 {
     /// <summary> 连接Oracle数据库 32位可用 </summary>
+    [Obsolete]
     public class OracleHelper
     {
         #region Ready
