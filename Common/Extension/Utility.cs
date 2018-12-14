@@ -5,8 +5,11 @@ using System.Text;
 
 namespace System
 {
+    /// <summary> 公共工具类 </summary>
     public sealed class Utility
     {
+        #region WebService 相关
+
         #region 检测WebService是否可用
         /// <summary> 检测WebService是否可用 </summary> 
         public static bool IsWebServiceAvaiable(string url)
@@ -126,7 +129,10 @@ namespace System
         }
         #endregion
 
-        #region 从路径获取文件的MD5
+        #endregion
+
+        #region _MD5 相关 
+
         /// <summary> 从路径获取文件的MD5 </summary>
         public static string GetMD5FromFile(string filePath)
         {
@@ -151,9 +157,7 @@ namespace System
 
             return md5Str;
         }
-        #endregion
 
-        #region 获取字节流的md5值
         /// <summary> 获取字节流的md5值 </summary>
         public static string GetMD5FromFileStream(byte[] buffer)
         {
@@ -174,9 +178,23 @@ namespace System
 
             return md5Str;
         }
+
+        /// <summary> 32位MD5加密 </summary> 
+        public static string Md5Hash(string input)
+        {
+            System.Security.Cryptography.MD5CryptoServiceProvider md5Hasher = new System.Security.Cryptography.MD5CryptoServiceProvider();
+            byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input));
+            StringBuilder sBuilder = new StringBuilder();
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+            return sBuilder.ToString();
+        }
+
         #endregion
 
-        #region Date 日期 
+        #region 日期 相关
 
         #region 根据时间 获取周几Int
         /// <summary> 根据时间 获取周几Int </summary>
@@ -236,8 +254,6 @@ namespace System
         {
             return GetWeekIntOfYear(dateTime) % 2 == 1 ? "单周" : "双周";
         }
-        #endregion 
-
         #endregion
 
         #region 计算年龄
@@ -247,120 +263,37 @@ namespace System
             DateTime now = DateTime.Now;
             int age = now.Year - birthDay.Year;
             if (now.Month < birthDay.Month || (now.Month == birthDay.Month && now.Day < birthDay.Day))
-            {
                 age--;
-            }
             return age < 0 ? 0 : age;
-        }
+        } 
+        #endregion
 
         #endregion
 
-        #region 是否是IP
-        /// <summary>
-        /// 是否是IP
-        /// </summary>
-        public static bool IsIP(string IP)
+        #region   Stream  相关
+
+        /// <summary> Stream 转换为 byte[] </summary>
+        public static byte[] StreamToBytes(Stream stream)
         {
-            string regex = @"^((([1-9]?\d|1\d\d|2[0-4]\d|25[0-5])\.){3}([1-9]?\d|1\d\d|2[0-4]\d|25[0-5]))$";
-            return System.Text.RegularExpressions.Regex.IsMatch(IP, regex);
+            byte[] bytes = new byte[stream.Length];
+            stream.Read(bytes, 0, bytes.Length);
+            stream.Seek(0, SeekOrigin.Begin);
+            return bytes;
         }
+
         #endregion
 
-        #region 10进制转换2进制
-        /// <summary>
-        /// 10进制转换2进制
-        /// </summary>
-        /// <param name="str">返回的2进制字符串</param>
-        /// <param name="num">需要转换的10进制数</param>
-        /// <returns></returns>
-        public static string ConvertToBinary(out string str, int num)
-        {
-            str = string.Empty;
-            if (num == 0)
-                return str;
-            ConvertToBinary(out str, num / 2);
-            return str += num % 2;
-        }
-        #endregion
+        #region 文件 相关
 
         #region 读取文件
         /// <summary>  读取文件 </summary>
         public static string ReadFile(string path, Encoding encoding = null)
         {
-            string result = "";
             Encoding realEncoding = encoding ?? Encoding.UTF8;
             using (StreamReader reader = new StreamReader(path, realEncoding))
             {
-                result = reader.ReadToEnd();
+                return reader.ReadToEnd();
             }
-            return result;
-        }
-        #endregion
-
-        #region IsContainsNum
-        public static bool IsContainsNum(string text)
-        {
-            for (int i = 0; i < text.Length; i++)
-            {
-                if (text[i] >= 48 && text[i] <= 57)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        #endregion
-
-        #region 获得强随机数，较耗内存
-        /// <summary> 获得强随机数，较耗内存 </summary>
-        public static int GetRandom()
-        {
-            byte[] randomBytes = new byte[8];
-            var rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
-            rng.GetBytes(randomBytes);
-            var result = BitConverter.ToInt32(randomBytes, 0);
-            result = System.Math.Abs(result);
-            return result;
-        }
-        #endregion
-
-        #region 获取测试DataTable
-        /// <summary> 获取测试DataTable </summary>
-        public static System.Data.DataTable GetTableTest(params string[] columns)
-        {
-            System.Data.DataTable dt = new System.Data.DataTable();
-            columns.ToList<string>().ForEach(a => dt.Columns.Add(a, typeof(string)));
-            return dt;
-        }
-        /// <summary> 获取测试DataTable </summary>
-        public static System.Data.DataTable GetTableTest(int rows, params string[] columns)
-        {
-            System.Data.DataTable dt = GetTableTest(columns);
-            for (int i = 0; i < rows; i++)
-            {
-                System.Data.DataRow row = dt.NewRow();
-                for (int j = 0; j < columns.Length; j++)
-                {
-                    row[columns[j]] = string.Format("{0}{1}", i, j);
-                }
-                dt.Rows.Add(row);
-            }
-            return dt;
-        }
-        #endregion
-
-        #region 32位MD5加密
-        /// <summary> 32位MD5加密 </summary> 
-        public static string Md5Hash(string input)
-        {
-            System.Security.Cryptography.MD5CryptoServiceProvider md5Hasher = new System.Security.Cryptography.MD5CryptoServiceProvider();
-            byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input));
-            StringBuilder sBuilder = new StringBuilder();
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-            return sBuilder.ToString();
         }
         #endregion
 
@@ -406,62 +339,16 @@ namespace System
         }
         #endregion
 
-        #region 获取系统内存大小
-        /// <summary> 获取系统内存大小 </summary>
-        [System.Runtime.InteropServices.DllImport("kernel32")]
-        public static extern void GlobalMemoryStatus(ref Memory_Info meminfo);
-        /// <summary> 内存的信息结构 </summary>
-        [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
-        public struct Memory_Info
-        {
-            public uint dwLength;
-            public uint dwMemoryLoad;
-            public uint dwTotalPhys;
-            public uint dwAvailPhys;
-            public uint dwTotalPageFile;
-            public uint dwAvailPageFile;
-            public uint dwTotalVirtual;
-            public uint dwAvailVirtual;
-        }
         #endregion
 
-        #region KeyPress是否是全角
-        /// <summary> KeyPress是否是全角 </summary>
-        public static bool IsFullAngle(System.Windows.Forms.KeyPressEventArgs e)
-        {
-            return ((e.KeyChar >= 65281 && e.KeyChar <= 65374) || e.KeyChar == 12288);
-        }
-        #endregion
-
-        #region 是否存在任何一个为空
-        /// <summary> 是否存在任何一个为空 </summary>
-        public static bool IsAnyNullOrEmpty(params string[] strings)
-        {
-            return strings == null || strings.Any(a => a.IsNullOrEmpty());
-        }
-        #endregion
-
-        #region   Stream  流
-
-        /// <summary> Stream 转换为 byte[] </summary>
-        public static byte[] StreamToBytes(Stream stream)
-        {
-            byte[] bytes = new byte[stream.Length];
-            stream.Read(bytes, 0, bytes.Length);
-            stream.Seek(0, SeekOrigin.Begin);
-            return bytes;
-        }
-
-        #endregion
-
-        #region   byte[] 字节数组
+        #region   byte[] 相关
 
         #region byte[] 转换为 Base64
         /// <summary> byte[] 转换为 Base64 </summary>
         public static string BytesToToBase64(byte[] bytes)
         {
             return Convert.ToBase64String(bytes).Replace("+", "%2B");
-        } 
+        }
         #endregion
 
         #region byte[] Zip压缩 为 Base64
@@ -536,7 +423,135 @@ namespace System
             }
             byte[] compressAfterByte = buffer;
             return compressAfterByte;
-        } 
+        }
+        #endregion
+
+        #endregion
+
+        #region 测试 相关
+
+        #region 获取测试DataTable
+        /// <summary> 获取测试DataTable </summary>
+        public static System.Data.DataTable GetTableTest(params string[] columns)
+        {
+            System.Data.DataTable dt = new System.Data.DataTable();
+            columns.ToList<string>().ForEach(a => dt.Columns.Add(a, typeof(string)));
+            return dt;
+        }
+        /// <summary> 获取测试DataTable </summary>
+        public static System.Data.DataTable GetTableTest(int rows, params string[] columns)
+        {
+            System.Data.DataTable dt = GetTableTest(columns);
+            for (int i = 0; i < rows; i++)
+            {
+                System.Data.DataRow row = dt.NewRow();
+                for (int j = 0; j < columns.Length; j++)
+                {
+                    row[columns[j]] = string.Format("{0}{1}", i, j);
+                }
+                dt.Rows.Add(row);
+            }
+            return dt;
+        }
+        #endregion 
+
+        #endregion
+        
+        #region 系统 相关
+
+        /// <summary> 获取系统内存大小 </summary>
+        [System.Runtime.InteropServices.DllImport("kernel32")]
+        public static extern void GlobalMemoryStatus(ref Memory_Info meminfo);
+        /// <summary> 内存的信息结构 </summary>
+        [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+        public struct Memory_Info
+        {
+            public uint dwLength;
+            public uint dwMemoryLoad;
+            public uint dwTotalPhys;
+            public uint dwAvailPhys;
+            public uint dwTotalPageFile;
+            public uint dwAvailPageFile;
+            public uint dwTotalVirtual;
+            public uint dwAvailVirtual;
+        }
+
+        #endregion
+
+        #region 判断 相关
+
+        #region KeyPress是否是全角
+        /// <summary> KeyPress是否是全角 </summary>
+        public static bool IsFullAngle(System.Windows.Forms.KeyPressEventArgs e)
+        {
+            return ((e.KeyChar >= 65281 && e.KeyChar <= 65374) || e.KeyChar == 12288);
+        }
+        #endregion
+
+        #region 是否存在任何一个为空
+        /// <summary> string[] 是否存在任何一个为空 </summary>
+        public static bool IsAnyNullOrEmpty(params string[] strings)
+        {
+            return strings == null || strings.Any(a => a.IsNullOrEmpty());
+        }
+        #endregion 
+
+        #region IsContainsNum
+        /// <summary> 字符串是否包含数字 </summary>
+        public static bool IsContainsNum(string text)
+        {
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (text[i] >= 48 && text[i] <= 57)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        #endregion
+
+        #region 是否是IP
+        /// <summary> 是否是IP </summary>
+        public static bool IsIP(string IP)
+        {
+            string regex = @"^((([1-9]?\d|1\d\d|2[0-4]\d|25[0-5])\.){3}([1-9]?\d|1\d\d|2[0-4]\d|25[0-5]))$";
+            return System.Text.RegularExpressions.Regex.IsMatch(IP, regex);
+        }
+        #endregion
+
+        #endregion
+        
+        #region 其它 相关
+
+        #region 获得强随机数，较耗内存
+        /// <summary> 获得强随机数，较耗内存 </summary>
+        public static int GetRandom()
+        {
+            byte[] randomBytes = new byte[8];
+            var rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
+            rng.GetBytes(randomBytes);
+            var result = BitConverter.ToInt32(randomBytes, 0);
+            result = System.Math.Abs(result);
+            return result;
+        }
+        #endregion
+
+        #region 10进制转换2进制
+        /// <summary>
+        /// 10进制转换2进制
+        /// </summary>
+        /// <param name="str">返回的2进制字符串</param>
+        /// <param name="num">需要转换的10进制数</param>
+        /// <returns></returns>
+        public static string ConvertToBinary(out string str, int num)
+        {
+            str = string.Empty;
+            if (num == 0)
+                return str;
+            ConvertToBinary(out str, num / 2);
+            return str += num % 2;
+        }
         #endregion
 
         #endregion
