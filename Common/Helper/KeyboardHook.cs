@@ -8,7 +8,7 @@ namespace Common
     /// 键盘钩子
     /// [以下代码来自某网友，并非本人原创]
     /// </summary>
-    class KeyboardHook
+    public class KeyboardHook
     {
         public event KeyEventHandler KeyDownEvent;
         public event KeyPressEventHandler KeyPressEvent;
@@ -58,7 +58,8 @@ namespace Common
             if (hKeyboardHook == 0)
             {
                 KeyboardHookProcedure = new HookProc(KeyboardHookProc);
-                hKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookProcedure, GetModuleHandle(System.Diagnostics.Process.GetCurrentProcess().MainModule.ModuleName), 0);
+                IntPtr IntPtr = GetModuleHandle(System.Diagnostics.Process.GetCurrentProcess().MainModule.ModuleName);
+                hKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookProcedure, IntPtr, 0);
                 //hKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookProcedure, Marshal.GetHINSTANCE(Assembly.GetExecutingAssembly().GetModules()[0]), 0);
                 //************************************
                 //键盘线程钩子

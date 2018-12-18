@@ -353,7 +353,7 @@ namespace System
 
         #region byte[] Zip压缩 为 Base64
         /// <summary> byte[] Zip压缩 为 Base64 </summary>
-        public static string ZipBase64(byte[] bytes)
+        public static string BytesToZipBase64(byte[] bytes)
         {
             //压缩
             string compressStr = "";
@@ -384,7 +384,7 @@ namespace System
 
         #region Base64 Zip解压 为 byte[]
         /// <summary> Base64 Zip解压 为 byte[] </summary>
-        public static byte[] UnzipBase64(string xml)
+        public static byte[] ZipBase64ToBytes(string xml)
         {
             //base64解码
             System.Text.UTF8Encoding encoder = new System.Text.UTF8Encoding();
