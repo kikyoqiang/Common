@@ -149,6 +149,12 @@ namespace System
             return list == null || list.Count() <= 0;
         }
 
+        /// <summary> 判断 集合 是否 有值 </summary>
+        public static bool IsNotEmpty<T>(this IEnumerable<T> list)
+        {
+            return list.IsNullOrEmpty() == false;
+        }
+
         /// <summary> 转换为安全字符串 </summary> 
         public static string ToSafeStr(this object o)
         {

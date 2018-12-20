@@ -70,6 +70,15 @@ namespace Common
                 writer.Write(message);
             }
         }
+
+        public static string FileToZipBase64(string path)
+        {
+            using (Stream sm = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                var data = Utility.StreamToBytes(sm);
+                return Utility.BytesToZipBase64(data);
+            }
+        }
     }
 
 }
