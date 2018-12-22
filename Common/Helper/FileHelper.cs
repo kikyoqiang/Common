@@ -71,6 +71,7 @@ namespace Common
             }
         }
 
+        /// <summary> 读取文件为 Zip Base64 </summary>
         public static string FileToZipBase64(string path)
         {
             using (Stream sm = new FileStream(path, FileMode.Open, FileAccess.Read))
@@ -79,6 +80,15 @@ namespace Common
                 return Utility.BytesToZipBase64(data);
             }
         }
-    }
 
+        /// <summary> 保存 Zip Base64 到文件 </summary>
+        public static void ZipBase64ToFile(string path, string zipBase64Data)
+        {
+            var bytes = Utility.ZipBase64ToBytes(zipBase64Data);
+            using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write))
+            {
+                fs.Write(bytes, 0, bytes.Length);
+            }
+        }
+    }
 }

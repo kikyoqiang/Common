@@ -355,30 +355,23 @@ namespace System
         /// <summary> byte[] Zip压缩 为 Base64 </summary>
         public static string BytesToZipBase64(byte[] bytes)
         {
-            //压缩
-            string compressStr = "";
-            try
+            using (MemoryStream ms = new MemoryStream())
+            using (var zip = new System.IO.Compression.GZipStream(ms, System.IO.Compression.CompressionMode.Compress, true))
             {
-                MemoryStream ms = new MemoryStream();
-                System.IO.Compression.GZipStream zip = new System.IO.Compression.GZipStream(ms, System.IO.Compression.CompressionMode.Compress, true);
+                //压缩
                 zip.Write(bytes, 0, bytes.Length);
                 zip.Close();
+
                 byte[] buffer = new byte[ms.Length];
                 ms.Position = 0;
                 ms.Read(buffer, 0, buffer.Length);
-                ms.Close();
-                compressStr = Convert.ToBase64String(buffer);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+                string compressStr = Convert.ToBase64String(buffer);
 
-            //base64编码
-            byte[] encData_byte = new byte[compressStr.Length];
-            encData_byte = System.Text.Encoding.UTF8.GetBytes(compressStr);
-            string xml = Convert.ToBase64String(encData_byte);
-            return xml;
+                //base64编码
+                byte[] encData_byte = new byte[compressStr.Length];
+                encData_byte = System.Text.Encoding.UTF8.GetBytes(compressStr);
+                return Convert.ToBase64String(encData_byte);
+            }
         }
         #endregion
 
@@ -393,34 +386,25 @@ namespace System
             int charCount = utf8Decode.GetCharCount(todecode_byte, 0, todecode_byte.Length);
             char[] decoded_char = new char[charCount];
             utf8Decode.GetChars(todecode_byte, 0, todecode_byte.Length, decoded_char, 0);
-            string decoded = new String(decoded_char);
+            string decoded = new string(decoded_char);
+
             //解压缩
             byte[] compressBeforeByte = Convert.FromBase64String(decoded);
             byte[] buffer = new byte[0x1000];
-            try
+
+            using (MemoryStream ms = new MemoryStream(compressBeforeByte))
+            using (var zip = new IO.Compression.GZipStream(ms, IO.Compression.CompressionMode.Decompress, true))
+            using (MemoryStream msreader = new MemoryStream())
             {
-                MemoryStream ms = new MemoryStream(compressBeforeByte);
-                IO.Compression.GZipStream zip = new IO.Compression.GZipStream(ms, IO.Compression.CompressionMode.Decompress, true);
-                MemoryStream msreader = new MemoryStream();
-                while (true)
+                int reader = 0;
+                while ((reader = zip.Read(buffer, 0, buffer.Length)) > 0)
                 {
-                    int reader = zip.Read(buffer, 0, buffer.Length);
-                    if (reader <= 0)
-                    {
-                        break;
-                    }
                     msreader.Write(buffer, 0, reader);
                 }
-                zip.Close();
-                ms.Close();
                 msreader.Position = 0;
                 buffer = msreader.ToArray();
-                msreader.Close();
             }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+
             byte[] compressAfterByte = buffer;
             return compressAfterByte;
         }
