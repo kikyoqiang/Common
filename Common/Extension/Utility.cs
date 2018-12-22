@@ -455,6 +455,19 @@ namespace System
         }
         #endregion
 
+        #region 测试方法 耗时4s
+        /// <summary> 测试方法 耗时4s </summary>
+        public static void LongTimeMethod()
+        {
+            var list2 = new Collections.Generic.List<string>();
+            for (int i = 0; i < 10000000; i++)
+            {
+                list2.Add(i.ToString());
+            }
+            list2 = null;
+        } 
+        #endregion
+
         #endregion
 
         #region 系统 相关
