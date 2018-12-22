@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DESEncryption.cs" />
     <Compile Include="Helper\DataTableHelper.cs" />
     <Compile Include="Helper\CSVFileHelper.cs" />
     <Compile Include="Helper\ExcelHelper.cs" />
