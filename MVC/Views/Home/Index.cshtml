@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View</title>
+    <script type="text/javascript" src="~/Scripts/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btn").click(function () {
+                console.log("111");
+                var i1 = $("#i1").val();
+                var i2 = $("#i2").val();
+                $.ajax({
+                    type: "post", //dateType: "text",
+                    url: "/Home/Add",
+                    data: { i1: i1, i2: i2 },
+                    success: function (data) {
+                        console.log("222");
+                        //alert(data);
+                        $("#result").val(data);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        // 状态码
+                        console.log(XMLHttpRequest.status);
+                        // 状态
+                        console.log(XMLHttpRequest.readyState);
+                        // 错误信息   
+                        console.log(textStatus);
+
+                        alert("错误信息：" + XMLHttpRequest.responseText); //获取的信息即是异常中的Message 
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <a href="https://www.baidu.com">百度一下，你就知道</a>
+        <br />
+        <input type="text" id="i1" /> + <input type="text" id="i2" /> <input type="button" id="btn" value="="> <input type="text" id="result" />
+    </div>
+</body>
+</html>
