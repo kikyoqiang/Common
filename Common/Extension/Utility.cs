@@ -571,5 +571,18 @@ namespace System
         #endregion
 
         #endregion
+
+        #region 线程 相关
+        /// <summary> 将方法排入队列以便执行。此方法在有线程池线程变得可用时执行 </summary>
+        public static void QueueUserWorkItem(Action work, Action complete = null)
+        {
+            System.Threading.ThreadPool.QueueUserWorkItem(obj =>
+            {
+                work();
+                if (complete != null)
+                    complete();
+            });
+        } 
+        #endregion
     }
 }
