@@ -155,6 +155,16 @@ namespace System
             return list.IsNullOrEmpty() == false;
         }
 
+        /// <summary> 获取字典的值(没有则返回默认值) </summary>
+        public static TValue GetValue<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key)
+        {
+            TValue value = default(TValue);
+            if (dic.IsNullOrEmpty())
+                return value;
+            dic.TryGetValue(key, out value);
+            return value;
+        }
+
         /// <summary> 转换为安全字符串 </summary> 
         public static string ToSafeStr(this object o)
         {
