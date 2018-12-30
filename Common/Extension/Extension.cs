@@ -219,11 +219,6 @@ namespace System
             return f;
         }
 
-        public static bool IsNull(this object text)
-        {
-            return text == null;
-        }
-
         #endregion
         
         #region DataRow Extension
