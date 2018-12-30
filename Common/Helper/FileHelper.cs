@@ -28,7 +28,7 @@ namespace Common
 
         private static void FinshCallBack(IAsyncResult result)
         {
-            if (result.IsNull()) return;
+            if (result == null) return;
             ReadFileClass rfc = result.AsyncState as ReadFileClass;
             int length = rfc.stream.EndRead(result);
             byte[] fileData = new byte[length];

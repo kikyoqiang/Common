@@ -220,7 +220,7 @@ namespace System
         }
 
         #endregion
-        
+
         #region DataRow Extension
         /// <summary>
         /// 获取字符串
@@ -493,7 +493,7 @@ namespace System
         #region OddItems
         public static IEnumerable<T> OddItems<T>(this IEnumerable<T> list)
         {
-            if (list.IsNull())
+            if (list == null)
                 throw new ArgumentException(nameof(list));
             for (int i = 0; i < list.Count(); i++)
             {
