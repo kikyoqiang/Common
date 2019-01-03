@@ -131,7 +131,7 @@ namespace Common
                 return set;
             using (System.IO.StringReader reader = new System.IO.StringReader(xmlString))
             {
-                set.ReadXml(reader, XmlReadMode.InferTypedSchema);
+                set.ReadXml(reader);
             }
             return set;
         }
