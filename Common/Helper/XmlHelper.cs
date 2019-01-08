@@ -129,6 +129,11 @@ namespace Common
             DataSet set = new DataSet();
             if (xmlString == null || xmlString.Length <= 0)
                 return set;
+            if (xmlString.StartsWith("<![CDATA["))
+            {
+                var temp1 = xmlString.Substring(xmlString.IndexOf("[") + 1);
+                xmlString = temp1.Substring(temp1.IndexOf("[") + 1).TrimEnd('>').TrimEnd(']');
+            }
             using (System.IO.StringReader reader = new System.IO.StringReader(xmlString))
             {
                 set.ReadXml(reader);
