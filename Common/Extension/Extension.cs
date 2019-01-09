@@ -505,5 +505,16 @@ namespace System
         }
         #endregion
 
+        #region 反射相关
+
+        /// <summary> 获取自定义属性 </summary>
+        public static T GetCustomAttribute<T>(this Reflection.ICustomAttributeProvider provider) where T : Attribute
+        {
+            var attributes = provider.GetCustomAttributes(typeof(T), false);
+            return attributes.Length > 0 ? attributes[0] as T : default(T);
+        } 
+
+        #endregion
+
     }
 }
