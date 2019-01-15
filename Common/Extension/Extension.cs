@@ -17,12 +17,7 @@ namespace System
         {
             return s == null || s.Length == 0 || s.Trim().Length == 0;
         }
-
-        public static bool IsNotEmpty(this string s)
-        {
-            return s.IsNullOrEmpty() == false;
-        }
-
+        
         public static int ToInt(this string text, int replaceNumber = 0)
         {
             int i = 0;
@@ -144,22 +139,16 @@ namespace System
         #region Object扩展方法
 
         /// <summary> 判断 集合 是否为空 </summary>
-        public static bool IsNullOrEmpty<T>(this IEnumerable<T> list)
+        public static bool IsListNullOrEmpty<T>(this IEnumerable<T> list)
         {
             return list == null || list.Count() <= 0;
         }
-
-        /// <summary> 判断 集合 是否 有值 </summary>
-        public static bool IsNotEmpty<T>(this IEnumerable<T> list)
-        {
-            return list.IsNullOrEmpty() == false;
-        }
-
+        
         /// <summary> 获取字典的值(没有则返回默认值) </summary>
         public static TValue GetValue<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key)
         {
             TValue value = default(TValue);
-            if (dic.IsNullOrEmpty())
+            if (dic.IsListNullOrEmpty())
                 return value;
             dic.TryGetValue(key, out value);
             return value;
