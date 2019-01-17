@@ -17,7 +17,7 @@ namespace System
         {
             return s == null || s.Length == 0 || s.Trim().Length == 0;
         }
-        
+
         public static int ToInt(this string text, int replaceNumber = 0)
         {
             int i = 0;
@@ -143,7 +143,22 @@ namespace System
         {
             return list == null || list.Count() <= 0;
         }
-        
+
+        /// <summary>
+        /// List添加元素  null 空 已存在 则不添加
+        /// </summary>
+        public static bool AddItem<T>(this List<T> list, T data)
+        {
+            if (data == null || (typeof(T) == typeof(string) && data.ToString().IsNullOrEmpty()))
+                return false;
+
+            if (list.Contains(data))
+                return false;
+
+            list.Add(data);
+            return true;
+        }
+
         /// <summary> 获取字典的值(没有则返回默认值) </summary>
         public static TValue GetValue<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key)
         {
@@ -501,7 +516,7 @@ namespace System
         {
             var attributes = provider.GetCustomAttributes(typeof(T), false);
             return attributes.Length > 0 ? attributes[0] as T : default(T);
-        } 
+        }
 
         #endregion
 
