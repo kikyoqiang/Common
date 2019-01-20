@@ -229,7 +229,7 @@ namespace Common
         /// <summary> 保存生成文件 </summary>
         public bool SaveFile(string filePath = "")
         {
-            if (filePath.IsNotEmpty())
+            if (!filePath.IsNullOrEmpty())
                 exportFilePath = filePath;
 
             Stream fs = null;

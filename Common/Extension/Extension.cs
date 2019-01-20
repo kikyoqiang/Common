@@ -18,11 +18,6 @@ namespace System
             return s == null || s.Length == 0 || s.Trim().Length == 0;
         }
 
-        public static bool IsNotEmpty(this string s)
-        {
-            return s.IsNullOrEmpty() == false;
-        }
-
         public static int ToInt(this string text, int replaceNumber = 0)
         {
             int i = 0;
@@ -144,22 +139,31 @@ namespace System
         #region Object扩展方法
 
         /// <summary> 判断 集合 是否为空 </summary>
-        public static bool IsNullOrEmpty<T>(this IEnumerable<T> list)
+        public static bool IsListNullOrEmpty<T>(this IEnumerable<T> list)
         {
             return list == null || list.Count() <= 0;
         }
 
-        /// <summary> 判断 集合 是否 有值 </summary>
-        public static bool IsNotEmpty<T>(this IEnumerable<T> list)
+        /// <summary>
+        /// List添加元素  null 空 已存在 则不添加
+        /// </summary>
+        public static bool AddItem<T>(this List<T> list, T data)
         {
-            return list.IsNullOrEmpty() == false;
+            if (data == null || (typeof(T) == typeof(string) && data.ToString().IsNullOrEmpty()))
+                return false;
+
+            if (list.Contains(data))
+                return false;
+
+            list.Add(data);
+            return true;
         }
 
         /// <summary> 获取字典的值(没有则返回默认值) </summary>
         public static TValue GetValue<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key)
         {
             TValue value = default(TValue);
-            if (dic.IsNullOrEmpty())
+            if (dic.IsListNullOrEmpty())
                 return value;
             dic.TryGetValue(key, out value);
             return value;
@@ -503,6 +507,17 @@ namespace System
                 }
             }
         }
+        #endregion
+
+        #region 反射相关
+
+        /// <summary> 获取自定义属性 </summary>
+        public static T GetCustomAttribute<T>(this Reflection.ICustomAttributeProvider provider) where T : Attribute
+        {
+            var attributes = provider.GetCustomAttributes(typeof(T), false);
+            return attributes.Length > 0 ? attributes[0] as T : default(T);
+        }
+
         #endregion
 
     }

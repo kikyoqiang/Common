@@ -449,6 +449,20 @@ namespace System
                 list2.Add(i.ToString());
             }
             list2 = null;
+        }
+        #endregion
+
+        #region 获取程序集是 Debug 还是 Release 模式
+        /// <summary> 获取程序集是 Debug 还是 Release 模式 </summary>
+        public static string GetDebugMode(string assemblyName)
+        {
+            if (string.IsNullOrEmpty(assemblyName))
+                throw new ArgumentNullException("assemblyName");
+
+            var ass = Reflection.Assembly.LoadFile(assemblyName);
+            var att = ass.GetCustomAttribute<Diagnostics.DebuggableAttribute>();
+            string ret = att.IsJITTrackingEnabled ? "Debug" : "Release";
+            return ret;
         } 
         #endregion
 
