@@ -68,7 +68,7 @@ namespace Common
             }
             catch (Exception ex)
             {
-                Log.Error(ex);
+                Logger.Error(ex);
                 throw;
             }
         }

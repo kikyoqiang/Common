@@ -208,7 +208,7 @@ namespace Common
                 Log("Debug", message);
         }
     }
-    public class Log
+    public sealed class Logger
     {
         public static void Error(string message)
         {
