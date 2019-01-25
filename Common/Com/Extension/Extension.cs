@@ -177,52 +177,7 @@ namespace System
                 value = o.ToString();
             return value;
         }
-
-        public static int ToInt(this object text, int replaceNumber = 0)
-        {
-            int i = 0;
-            if (text != null)
-                if (!int.TryParse(text.ToString(), out i))
-                    i = replaceNumber;
-            return i;
-        }
-
-        public static long ToLong(this object text, long replaceNumber = 0)
-        {
-            long l = 0;
-            if (text != null)
-                if (!long.TryParse(text.ToString(), out l))
-                    l = replaceNumber;
-            return l;
-        }
-
-        public static double ToDouble(this object text, double replaceNumber = 0)
-        {
-            double d = 0;
-            if (text != null)
-                if (!double.TryParse(text.ToString(), out d))
-                    d = replaceNumber;
-            return d;
-        }
-
-        public static decimal ToDecimal(this object text, decimal replaceNumber = 0)
-        {
-            decimal d = 0;
-            if (text != null)
-                if (!decimal.TryParse(text.ToString(), out d))
-                    d = replaceNumber;
-            return d;
-        }
-
-        public static float ToFloat(this object text, float replaceNumber = 0)
-        {
-            float f = 0;
-            if (text != null)
-                if (!float.TryParse(text.ToString(), out f))
-                    f = replaceNumber;
-            return f;
-        }
-
+        
         #endregion
 
         #region DataRow Extension
