@@ -7,11 +7,15 @@ namespace Common
 {
     public static class EnumClass
     {
-        public enum DataBaseType
-        {
-            SqlServeType = 1,
-            OracleType = 2,
-            WebServiceType = 3,
-        }
+        
+    }
+    /// <summary>
+    /// 数据库类型
+    /// </summary>
+    public enum DataBaseType
+    {
+        SqlServerType = 1,
+        OracleType = 2,
+        WebServiceType = 3,
     }
 }
