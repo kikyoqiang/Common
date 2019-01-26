@@ -294,14 +294,7 @@ namespace System
         {
             return data == null || data.Rows.Count <= 0;
         }
-
-        /// <summary>
-        /// 判断DataTable 不为空
-        /// </summary>
-        public static bool IsNotEmpty(this DataTable data)
-        {
-            return data.IsNullOrEmpty() == false;
-        }
+        
         #endregion
 
         #region DataSet Extension
