@@ -584,6 +584,13 @@ namespace System
         }
         #endregion
 
+        #region 深度拷贝
+        /// <summary>
+        /// 深度拷贝
+        /// <para>source 必须标注 Serializable</para>
+        /// </summary>        public static T DeepCopy<T>(T source) where T : class        {            var stream = new System.IO.MemoryStream();            var formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();            formatter.Serialize(stream, source);            stream.Position = 0;            return formatter.Deserialize(stream) as T;        } 
+        #endregion
+
         #endregion
 
         #region 线程 相关
