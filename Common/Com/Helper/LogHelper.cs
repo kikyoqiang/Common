@@ -287,7 +287,7 @@ namespace Common
         /// <para>cmdTxt 执行的sql</para>
         /// <para>inputParams 传入的Hashtable参数</para>
         /// </summary>
-        public void LogLastError(string cmdTxt, System.Collections.Hashtable inputParams = null)
+        public static void LogLastError(string cmdTxt, System.Collections.Hashtable inputParams = null)
         {
             LogHelper.Instance.LogLastError(cmdTxt, inputParams);
         }
