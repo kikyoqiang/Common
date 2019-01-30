@@ -155,9 +155,39 @@ namespace Common
             }
         }
 
+        /// <summary>
+        /// 记录执行sql时的错误日志
+        /// <para>cmdTxt 执行的sql</para>
+        /// <para>inputParams 传入的Hashtable参数</para>
+        /// </summary>
+        public void LogLastError(string cmdTxt, System.Collections.Hashtable inputParams = null)
+        {
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("操作数据库发生错误  : \r\n====================插如sql或存储过程名称");
+                sb.AppendFormat("{0}", cmdTxt).AppendLine();
+
+                if (inputParams != null && inputParams.Count > 0)
+                {
+                    sb.AppendLine("====================参数如下");
+                    foreach (System.Collections.DictionaryEntry entry in inputParams)
+                        sb.AppendFormat("参数名称：{0} 参数值：{1}", entry.Key, entry.Value).AppendLine();
+                }
+
+                LogHelper.Instance.WriteError(sb.ToString());
+            }
+            catch (Exception ex)
+            {
+                string path = string.Format("{0}{1}", AppDomain.CurrentDomain.BaseDirectory, "记录执行sql时的错误日志 发生异常.txt");
+                string text = string.Format("\r\n {0} {1} \r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), ex.ToString());
+                System.IO.File.AppendAllText(path, text);
+            }
+        }
+
         public void WriteError(string message)
         {
-            Log("Error", string.Format(" {0} 异常", message));
+            Log("Error", message);
         }
 
         public void WriteError(string format, params object[] args)
@@ -251,6 +281,15 @@ namespace Common
         public static void Debug(string message, bool isLog)
         {
             LogHelper.Instance.WriteDebug(message, isLog);
+        }
+        /// <summary>
+        /// 记录执行sql时的错误日志
+        /// <para>cmdTxt 执行的sql</para>
+        /// <para>inputParams 传入的Hashtable参数</para>
+        /// </summary>
+        public void LogLastError(string cmdTxt, System.Collections.Hashtable inputParams = null)
+        {
+            LogHelper.Instance.LogLastError(cmdTxt, inputParams);
         }
     }
 }
