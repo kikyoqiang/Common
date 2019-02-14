@@ -20,7 +20,7 @@ namespace System
         /// <para>System.Threading.WaitCallback，它表示要执行的方法。</para>
         /// </summary>
         /// <returns></returns>
-        public static bool Run(System.Threading.WaitCallback callBack)
+        public static bool Go(System.Threading.WaitCallback callBack)
         {
             return System.Threading.ThreadPool.QueueUserWorkItem(callBack);
         }
@@ -30,7 +30,7 @@ namespace System
         /// <para>state 包含方法所用数据的对象。</para>
         /// </summary>
         /// <returns></returns>
-        public static bool Run(System.Threading.WaitCallback callBack, object state)
+        public static bool Go(System.Threading.WaitCallback callBack, object state)
         {
             return System.Threading.ThreadPool.QueueUserWorkItem(callBack, state);
         }
