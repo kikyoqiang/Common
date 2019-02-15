@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Com\Extension\ComClass.cs" />
     <Compile Include="Com\Extension\EnumClass.cs" />
+    <Compile Include="Com\Helper\BinarySerializerHelper.cs" />
     <Compile Include="Com\Helper\DESEncryption.cs" />
     <Compile Include="Com\Helper\DataTableHelper.cs" />
     <Compile Include="Com\Helper\CSVFileHelper.cs" />
