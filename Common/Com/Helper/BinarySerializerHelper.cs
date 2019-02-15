@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
 namespace Common
@@ -13,16 +12,19 @@ namespace Common
     public class BinarySerializerHelper
     {
         /// <summary>
-        /// 将类型序列化为字符串
+        /// 将类型序列化为Json字符串
         /// </summary>
         public static string Serialize<T>(T data)
         {
-            using (MemoryStream stream = new MemoryStream())
-            {
-                BinaryFormatter formatter = new BinaryFormatter();
-                formatter.Serialize(stream, data);
-                return System.Text.Encoding.UTF8.GetString(stream.ToArray());
-            }
+            return new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(data);
+        }
+
+        /// <summary>
+        /// 将Json字符串反序列化为类型
+        /// </summary>
+        public static TResult Deserialize<TResult>(string strData) where TResult : class
+        {
+            return new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize<TResult>(strData);
         }
 
         /// <summary>
@@ -35,25 +37,12 @@ namespace Common
             
             using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
             {
-                BinaryFormatter formatter = new BinaryFormatter();
+                var formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                 formatter.Serialize(stream, data);
                 stream.Flush();
             }
         }
-
-        /// <summary>
-        /// 将字符串反序列化为类型
-        /// </summary>
-        public static TResult Deserialize<TResult>(string strData) where TResult : class
-        {
-            byte[] bs = System.Text.Encoding.UTF8.GetBytes(strData);
-            using (MemoryStream stream = new MemoryStream(bs))
-            {
-                BinaryFormatter formatter = new BinaryFormatter();
-                return formatter.Deserialize(stream) as TResult;
-            }
-        }
-
+        
         /// <summary>
         /// 将文件反序列化为类型
         /// </summary>
@@ -61,7 +50,7 @@ namespace Common
         {
             using (FileStream stream = new FileStream(path, FileMode.Open))
             {
-                BinaryFormatter formatter = new BinaryFormatter();
+                var formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                 return formatter.Deserialize(stream) as TResult;
             }
         }
