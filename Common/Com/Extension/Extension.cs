@@ -117,11 +117,16 @@ namespace System
             return v;
         }
 
-        public static string GetSplitValue(this string s, char[] splitChar, int pIndex)
+        /// <summary> 
+        /// 获取分割后的字符串  
+        /// <para>pIndex 获取的索引</para> 
+        /// <para>splitChar 用来分割的字符</para> 
+        /// </summary>
+        public static string GetSplitValue(this string s, int pIndex, params char[] splitChar)
         {
             if (s.IsNullOrEmpty()) return "";
             string[] strs = s.Split(splitChar);
-            if (strs == null) return "";
+            if (strs == null || strs.Length <= 0) return "";
             if (pIndex >= strs.Length) return "";
             return strs[pIndex];
         }
@@ -177,7 +182,7 @@ namespace System
                 value = o.ToString();
             return value;
         }
-        
+
         #endregion
 
         #region DataRow Extension
@@ -294,7 +299,7 @@ namespace System
         {
             return data == null || data.Rows.Count <= 0;
         }
-        
+
         #endregion
 
         #region DataSet Extension
