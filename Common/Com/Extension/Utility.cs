@@ -463,7 +463,32 @@ namespace System
             var att = ass.GetCustomAttribute<Diagnostics.DebuggableAttribute>();
             string ret = att.IsJITTrackingEnabled ? "Debug" : "Release";
             return ret;
-        } 
+        }
+        #endregion
+
+        #region Stopwatch计时器
+        /// <summary>
+        /// 计时器开始
+        /// </summary>
+        /// <returns></returns>
+        public static Diagnostics.Stopwatch TimerStart()
+        {
+            var watch = new Diagnostics.Stopwatch();
+            watch.Reset();
+            watch.Start();
+            return watch;
+        }
+        /// <summary>
+        /// 计时器结束
+        /// </summary>
+        /// <param name="watch"></param>
+        /// <returns></returns>
+        public static string TimerEnd(Diagnostics.Stopwatch watch)
+        {
+            watch.Stop();
+            double costtime = watch.ElapsedMilliseconds;
+            return costtime.ToString();
+        }
         #endregion
 
         #endregion
@@ -588,7 +613,15 @@ namespace System
         /// <summary>
         /// 深度拷贝
         /// <para>source 必须标注 Serializable</para>
-        /// </summary>        public static T DeepCopy<T>(T source) where T : class        {            var stream = new System.IO.MemoryStream();            var formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();            formatter.Serialize(stream, source);            stream.Position = 0;            return formatter.Deserialize(stream) as T;        } 
+        /// </summary>
+        public static T DeepCopy<T>(T source) where T : class
+        {
+            var stream = new System.IO.MemoryStream();
+            var formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            formatter.Serialize(stream, source);
+            stream.Position = 0;
+            return formatter.Deserialize(stream) as T;
+        } 
         #endregion
 
         #endregion
