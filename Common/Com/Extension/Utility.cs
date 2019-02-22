@@ -222,6 +222,43 @@ namespace System
         }
         #endregion
 
+        #region 根据时间 获取周几str 例：周一
+        /// <summary> 根据时间 获取周几str 例：周一 </summary>
+        public static string GetWeekStrByInt(DateTime dateTime)
+        {
+            int week = GetWeekInt(dateTime);
+            string str = "";
+            switch (week)
+            {
+                case 1:
+                    str = "一";
+                    break;
+                case 2:
+                    str = "二";
+                    break;
+                case 3:
+                    str = "三";
+                    break;
+                case 4:
+                    str = "四";
+                    break;
+                case 5:
+                    str = "五";
+                    break;
+                case 6:
+                    str = "六";
+                    break;
+                case 7:
+                    str = "日";
+                    break;
+                default:
+                    str = "";
+                    break;
+            }
+            return str;
+        } 
+        #endregion
+
         #region 获得目标日期 是单周 还是双周
         /// <summary>获得目标日期 是单周 还是双周 </summary> 
         public static string GetWeekByDate(DateTime Target)
