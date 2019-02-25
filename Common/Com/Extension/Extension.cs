@@ -146,7 +146,7 @@ namespace System
         /// <summary> 判断 集合 是否为空 </summary>
         public static bool IsListNullOrEmpty<T>(this IEnumerable<T> list)
         {
-            return list == null || list.Count() <= 0;
+            return list == null || !list.Any();
         }
 
         /// <summary>
