@@ -223,7 +223,7 @@ namespace System
         #endregion
 
         #region 根据时间 获取周几str 例：周一
-        /// <summary> 根据时间 获取周几str 例：周一 </summary>
+        /// <summary> 根据时间 获取周几str 例：一 </summary>
         public static string GetWeekStrByInt(DateTime dateTime)
         {
             int week = GetWeekInt(dateTime);

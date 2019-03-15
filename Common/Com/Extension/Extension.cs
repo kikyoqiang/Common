@@ -174,6 +174,17 @@ namespace System
             return value;
         }
 
+        /// <summary> 向字典添加值(key存在则返回) </summary>
+        public static bool AddItem<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, TValue value)
+        {
+            if (dic == null)
+                return false;
+            if (dic.ContainsKey(key))
+                return false;
+            dic.Add(key, value);
+            return true;
+        }
+
         /// <summary> 转换为安全字符串 </summary> 
         public static string ToSafeStr(this object o)
         {
