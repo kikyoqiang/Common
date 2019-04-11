@@ -60,6 +60,7 @@
     <Compile Include="Com\Helper\CSVFileHelper.cs" />
     <Compile Include="Com\Helper\ExcelHelper.cs" />
     <Compile Include="Com\Helper\FileHelper.cs" />
+    <Compile Include="Com\Helper\HttpHelper2.cs" />
     <Compile Include="Com\Helper\KeyboardHook.cs" />
     <Compile Include="Com\Helper\OracleHelper.cs" />
     <Compile Include="Com\Helper\OleOracleHelper.cs" />
