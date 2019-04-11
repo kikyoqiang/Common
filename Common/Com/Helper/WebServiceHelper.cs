@@ -28,6 +28,13 @@ namespace Common
         //ht.Add("b", "true");
         //XmlDocument xx = WebSvcCaller.QuerySoapWebService("http://localhost:81/service.asmx", "HelloWorld", ht);
         //MessageBox.Show(xx.OuterXml);
+
+        //string url = "http://172.16.4.19:10001/WebService.asmx";
+        //string method = "service ";
+        //Hashtable table = new Hashtable();
+        //table.Add("param", "param的值");
+        //table.Add("data", "data的值");
+        //var data = WebServiceHelper.PostWebService(url, method, table);
         #endregion
 
         #region Ready
