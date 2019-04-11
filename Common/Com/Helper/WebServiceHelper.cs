@@ -310,7 +310,7 @@ namespace Common
             {
                 Reader.MoveToContent();
                 var data = Reader.ReadInnerXml();
-                var res = data.Replace("&lt;", "<").Replace("&gt;", ">");
+                var res = data.Replace("&lt;", "<").Replace("&gt;", ">").Replace("&amp;", "&").Replace("&apos;", "'").Replace("&quot;", "\"");
                 return res;
             }
         }
