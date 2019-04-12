@@ -22,7 +22,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <DocumentationFile>bin\Common.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -53,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Com\Extension\ComClass.cs" />
+    <Compile Include="Com\Extension\Constant.cs" />
     <Compile Include="Com\Extension\EnumClass.cs" />
     <Compile Include="Com\Helper\BinarySerializerHelper.cs" />
     <Compile Include="Com\Helper\DESEncryption.cs" />
