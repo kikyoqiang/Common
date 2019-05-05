@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 
 namespace Common
 {
@@ -197,9 +198,7 @@ namespace Common
                     fs.Close();
             }
         }
-
-
-
+        
         private HSSFPatriarch patriarch = null;
 
         private string exportFilePath = string.Format("{0}{1}.xls", AppDomain.CurrentDomain.BaseDirectory, DateTime.Now.ToString("mmfff"));
@@ -486,6 +485,50 @@ namespace Common
 
             cell.CellStyle.WrapText = true;
             cell.SetCellValue(value);
+        }
+
+        public void AutoColumnWidth(ISheet sheet, int columnCout, int totalColumnWidth = 145)
+        {
+            //列宽自适应，只对英文和数字有效
+            for (int i = 0; i <= columnCout; i++)
+            {
+                sheet.AutoSizeColumn(i);
+            }
+
+            //获取当前列的宽度，然后对比本列的长度，取最大值
+            Dictionary<int, int> dic = new Dictionary<int, int>();
+            for (int columnNum = 0; columnNum <= columnCout; columnNum++)
+            {
+                int columnWidth = sheet.GetColumnWidth(columnNum) / 256;
+                for (int rowNum = 1; rowNum <= sheet.LastRowNum; rowNum++)
+                {
+                    IRow currentRow;
+                    if (sheet.GetRow(rowNum) == null)     //当前行未被使用过
+                        currentRow = sheet.CreateRow(rowNum);
+                    else
+                        currentRow = sheet.GetRow(rowNum);
+
+                    if (currentRow.GetCell(columnNum) == null)
+                        continue;
+
+                    ICell currentCell = currentRow.GetCell(columnNum);
+                    int length = System.Text.Encoding.Default.GetBytes(currentCell.ToString()).Length;
+                    if (columnWidth < length)
+                        columnWidth = length;
+                }
+                dic.Add(columnNum, columnWidth);
+                //ffSheet.SetColumnWidth(columnNum, columnWidth * 256);
+            }
+
+            int everyAdd = (totalColumnWidth - dic.Values.Sum()) / dic.Count;
+
+            if (everyAdd > 0)
+            {
+                foreach (var item in dic)
+                {
+                    sheet.SetColumnWidth(item.Key, (item.Value + everyAdd) * 256);
+                }
+            }
         }
     }
 }

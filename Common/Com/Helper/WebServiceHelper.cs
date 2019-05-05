@@ -28,58 +28,20 @@ namespace Common
         //ht.Add("b", "true");
         //XmlDocument xx = WebSvcCaller.QuerySoapWebService("http://localhost:81/service.asmx", "HelloWorld", ht);
         //MessageBox.Show(xx.OuterXml);
+
+        //string url = "http://172.16.4.19:10001/WebService.asmx";
+        //string method = "service ";
+        //Hashtable table = new Hashtable();
+        //table.Add("param", "param的值");
+        //table.Add("data", "data的值");
+        //var data = WebServiceHelper.PostWebService(url, method, table);
         #endregion
 
-        /// <summary>
-        /// Post 请求WebService
-        /// </summary>
-        public static string PostString(string URL, string MethodName, Hashtable Pars)
-        {
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(URL + "/" + MethodName);
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
-            SetWebRequest(request);
-            byte[] data = EncodePars(Pars);
-            WriteRequestData(request, data);
-            HttpWebResponse response = null;
-            try
-            {
-                response = (HttpWebResponse)request.GetResponse();
-            }
-            catch (WebException ex)
-            {
-                //response = (HttpWebResponse)ex.Response;
-                var message = ReadStringResponse(ex.Response);
-                throw new Exception(message);
-            }
-            return ReadStringResponse(response);
-        }
+        #region Ready
+        private static Hashtable _xmlNamespaces = new Hashtable();      //缓存xmlNamespace，避免重复调用GetNamespace 
+        #endregion
 
-        /// <summary>
-        /// Post 请求WebService
-        /// </summary>
-        public static string PostString(string URL, string postString)
-        {
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(URL);
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
-            SetWebRequest(request);
-            byte[] data = Encoding.UTF8.GetBytes(postString);
-            WriteRequestData(request, data);
-            HttpWebResponse response = null;
-            try
-            {
-                response = (HttpWebResponse)request.GetResponse();
-            }
-            catch (WebException ex)
-            {
-                //response = (HttpWebResponse)ex.Response;
-                var message = ReadStringResponse(ex.Response);
-                throw new Exception(message);
-            }
-            return ReadStringResponse(response);
-        }
-
+        #region Get 请求WebService
         /// <summary>
         /// Get 请求WebService
         /// </summary>
@@ -107,7 +69,97 @@ namespace Common
             }
             return ReadStringResponse(response);
         }
+        #endregion
 
+        #region Post 请求WebService
+        /// <summary>
+        /// Post 请求WebService
+        /// </summary>
+        public static string PostWebService(string url, string MethodName, Hashtable Pars)
+        {
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url + "/" + MethodName);
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            SetWebRequest(request);
+            byte[] data = EncodePars(Pars);
+            WriteRequestData(request, data);
+            HttpWebResponse response = null;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException ex)
+            {
+                //response = (HttpWebResponse)ex.Response;
+                var message = ReadStringResponse(ex.Response);
+                throw new Exception(message);
+            }
+            return ReadXml(response);
+        }
+
+        /// <summary>
+        /// Post 请求WebService
+        /// </summary>
+        public static string PostString(string url, string postString)
+        {
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            SetWebRequest(request);
+            byte[] data = Encoding.UTF8.GetBytes(postString);
+            WriteRequestData(request, data);
+            HttpWebResponse response = null;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException ex)
+            {
+                //response = (HttpWebResponse)ex.Response;
+                var message = ReadStringResponse(ex.Response);
+                throw new Exception(message);
+            }
+            return ReadXml(response);
+        }
+        #endregion
+
+        #region Post 请求
+        /// <summary>
+        /// Post 请求
+        /// </summary>
+        public static string PostJson(string url, Hashtable Pars)
+        {
+            byte[] data = EncodePars(Pars);
+            string requestMethod = "POST";
+            string contentType = "application/json";
+            var res = Post(url, data, ReadStringResponse, requestMethod, contentType);
+            return res;
+        }
+        #endregion
+
+        #region Post
+        private static string Post(string url, byte[] data, Func<WebResponse, string> func, string requestMethod, string contentType)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = requestMethod;
+            request.ContentType = contentType;
+            SetWebRequest(request);
+            WriteRequestData(request, data);
+            HttpWebResponse response = null;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException ex)
+            {
+                var message = ReadStringResponse(ex.Response);
+                throw new Exception(message);
+            }
+            return func(response);
+        }
+        #endregion
+
+        #region 通用WebService调用(Soap),参数Pars为string类型的参数名、参数值
         /// <summary>
         /// 通用WebService调用(Soap),参数Pars为string类型的参数名、参数值
         /// </summary>
@@ -143,6 +195,9 @@ namespace Common
             AddDelaration(doc2);
             return doc2;
         }
+        #endregion
+
+        #region 通用
         private static string GetNamespace(string URL)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL + "?WSDL");
@@ -241,6 +296,25 @@ namespace Common
             }
         }
 
+        private static string ReadStringResponse(WebResponse response)
+        {
+            using (StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+            {
+                return sr.ReadToEnd();
+            }
+        }
+
+        private static string ReadXml(WebResponse response)
+        {
+            using (XmlTextReader Reader = new XmlTextReader(response.GetResponseStream()))
+            {
+                Reader.MoveToContent();
+                var data = Reader.ReadInnerXml();
+                var res = data.Replace("&lt;", "<").Replace("&gt;", ">").Replace("&amp;", "&").Replace("&apos;", "'").Replace("&quot;", "\"");
+                return res;
+            }
+        }
+
         private static XmlDocument ReadXmlResponse(WebResponse response)
         {
             TextReader reader = null;
@@ -264,7 +338,6 @@ namespace Common
             XmlDeclaration decl = doc.CreateXmlDeclaration("1.0", "utf-8", null);
             doc.InsertBefore(decl, doc.DocumentElement);
         }
-
-        private static Hashtable _xmlNamespaces = new Hashtable();//缓存xmlNamespace，避免重复调用GetNamespace
+        #endregion
     }
 }

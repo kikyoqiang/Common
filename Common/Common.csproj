@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Com\Extension\ComClass.cs" />
+    <Compile Include="Com\Extension\Constant.cs" />
     <Compile Include="Com\Extension\EnumClass.cs" />
     <Compile Include="Com\Helper\BinarySerializerHelper.cs" />
     <Compile Include="Com\Helper\DESEncryption.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Com\Helper\CSVFileHelper.cs" />
     <Compile Include="Com\Helper\ExcelHelper.cs" />
     <Compile Include="Com\Helper\FileHelper.cs" />
+    <Compile Include="Com\Helper\HttpHelper2.cs" />
     <Compile Include="Com\Helper\KeyboardHook.cs" />
     <Compile Include="Com\Helper\MailHelper.cs" />
     <Compile Include="Com\Helper\OracleHelper.cs" />

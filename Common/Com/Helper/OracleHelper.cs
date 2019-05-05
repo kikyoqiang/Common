@@ -76,7 +76,15 @@ namespace Common
 
         #region ExecuteNonQuery    执行sql
 
-        public int ExecuteNonQuery(string sql, OracleParameter[] parameters = null)
+        public int ExecuteNonQuery(string sql)
+        {
+            oracleConnection = GetConnect();
+            if (transaction != null)
+                transaction.Rollback();
+            return ExecuteNonQuery(oracleConnection, null, sql, null);
+        }
+
+        public int ExecuteNonQuery(string sql, OracleParameter[] parameters)
         {
             oracleConnection = GetConnect();
             if (transaction != null)

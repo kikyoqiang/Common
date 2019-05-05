@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -174,6 +175,17 @@ namespace System
             return value;
         }
 
+        /// <summary> 向字典添加值(key存在则返回) </summary>
+        public static bool AddItem<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, TValue value)
+        {
+            if (dic == null)
+                return false;
+            if (dic.ContainsKey(key))
+                return false;
+            dic.Add(key, value);
+            return true;
+        }
+
         /// <summary> 转换为安全字符串 </summary> 
         public static string ToSafeStr(this object o)
         {
@@ -183,6 +195,21 @@ namespace System
             return value;
         }
 
+        #endregion
+
+        #region Stream扩展方法
+        public static void CopyStream(this Stream input, Stream output, int bufferSize)
+        {
+            byte[] buffer = new byte[bufferSize];
+            long TempPos = input.Position;
+            while (true)
+            {
+                int read = input.Read(buffer, 0, buffer.Length);
+                if (read <= 0) break;
+                output.Write(buffer, 0, read);
+            }
+            input.Position = TempPos;   // or you make Position = 0 to set it at the start 
+        }
         #endregion
 
         #region DataRow Extension
