@@ -62,6 +62,7 @@
     <Compile Include="Com\Helper\ExcelHelper.cs" />
     <Compile Include="Com\Helper\FileHelper.cs" />
     <Compile Include="Com\Helper\KeyboardHook.cs" />
+    <Compile Include="Com\Helper\MailHelper.cs" />
     <Compile Include="Com\Helper\OracleHelper.cs" />
     <Compile Include="Com\Helper\OleOracleHelper.cs" />
     <Compile Include="Com\Helper\TaskQueue.cs" />
